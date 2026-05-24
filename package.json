@@ -1,0 +1,27 @@
+{
+  "name": "midi-bleep-bop",
+  "private": true,
+  "version": "0.1.0",
+  "description": "MIDI client library for Snap Spectacles 24, with a Node bridge",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "bridge",
+    "examples"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "build:lens": "node scripts/build-lens.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:iac": "node scripts/iac-loopback.mjs",
+    "test:iac:bun": "bun scripts/iac-loopback.mjs",
+    "play:gb": "node scripts/garageband-play.mjs",
+    "clean": "tsc --build --clean"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.4.0"
+  }
+}

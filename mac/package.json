@@ -1,0 +1,16 @@
+{
+  "name": "midi-bleep-bop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "jzz": "^1.9.6",
+    "midi": "^2.0.0",
+    "noble-mac": "https://github.com/Timeular/noble-mac.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

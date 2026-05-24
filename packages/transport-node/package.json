@@ -1,0 +1,25 @@
+{
+  "name": "@midi-bleep-bop/transport-node",
+  "version": "0.1.0",
+  "description": "Node.js WebSocket transport for midi-bleep-bop (tests, bridge clients, CLIs)",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src"],
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@midi-bleep-bop/core": "0.1.0",
+    "ws": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.10"
+  }
+}

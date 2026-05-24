@@ -1,0 +1,9 @@
+{
+  "name": "MidiBleepBop",
+  "version": "0.1.0",
+  "description": "MIDI client library for Snap Spectacles 24 (WebSocket bridge transport)",
+  "scripts": [
+    "Scripts/MidiBleepBop.ts",
+    "Scripts/MidiClientComponent.ts"
+  ]
+}

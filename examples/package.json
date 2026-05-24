@@ -1,0 +1,16 @@
+{
+  "name": "@midi-bleep-bop/examples",
+  "version": "0.1.0",
+  "description": "Reference node CLIs that exercise midi-bleep-bop end-to-end",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "tsc --build",
+    "echo": "node dist/echo.js",
+    "chord": "node dist/chord-press.js"
+  },
+  "dependencies": {
+    "@midi-bleep-bop/core": "0.1.0",
+    "@midi-bleep-bop/transport-node": "0.1.0"
+  }
+}
