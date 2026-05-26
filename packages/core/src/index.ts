@@ -1,7 +1,7 @@
 export {
   encodeMessage,
   parseMessage,
-  type CC,
+  type CCMessage,
   type ChannelPressure,
   type MidiMessage,
   type NoteOff,
@@ -21,3 +21,6 @@ export {
 } from './transport.js';
 
 export { MidiClient, type Unsubscribe } from './client.js';
+
+export { CC, type CCName, type CCNumber } from './cc-constants.js';
+export { CCMapper, type CCMapperOptions } from './cc-mapper.js';

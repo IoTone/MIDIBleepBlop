@@ -1,0 +1,47 @@
+- !<AssetImportMetadata/1a029857-2b99-4c87-86b7-d62323e73622>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> c759556e-6186-4bbd-8a94-90602f770511
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> c759556e-6186-4bbd-8a94-90602f770511
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> bb7e1a3d-6b4e-46e7-afd3-344c735ba391
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/bb7e1a3d-6b4e-46e7-afd3-344c735ba391>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 10c0ce0b-2ad8-4773-89f6-800413243117
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    autoConnect: false
+    bridgeUrl: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - bridgeUrl: "ws://192.168.1.100:8765"
+      autoConnect: true
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - "// @input string bridgeUrl = \"ws://192.168.1.100:8765\" {\"hint\":\"WebSocket URL of the bridge. NOT localhost — Spectacles resolves that to itself. Use your dev machine's LAN IP, e.g. ws://192.168.1.100:8765\"}"
+    - '// @input bool autoConnect = true {"hint":"Automatically connect on onAwake"}'

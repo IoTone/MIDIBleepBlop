@@ -1,0 +1,249 @@
+{
+  "_source": "vendor/pencilresearch-midi/KORG/volca keys.csv",
+  "_license": "CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md)",
+  "manufacturer": "KORG",
+  "device": "volca keys",
+  "slug": "korg-volca-keys",
+  "parameters": [
+    {
+      "section": "VCO",
+      "name": "Portamento",
+      "description": null,
+      "cc": 5,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Expression",
+      "description": null,
+      "cc": 11,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Voice",
+      "description": null,
+      "cc": 40,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": "0-12: Poly; 13-37: Unison; 38-62: Octave; 63-87: Fifth; 88-112: Unison ring; 113-127: Poly ring",
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Octave",
+      "description": null,
+      "cc": 41,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": "0-21: 32'; 22-43: 16'; 44-65: 8'; 66-87: 4'; 88-109: 2'; 110-127: 1'",
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "VCO",
+      "name": "Detune",
+      "description": null,
+      "cc": 42,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "VCO",
+      "name": "VCO EG depth",
+      "description": null,
+      "cc": 43,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "EG",
+      "name": "Attack",
+      "description": null,
+      "cc": 49,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "EG",
+      "name": "Decay/release",
+      "description": null,
+      "cc": 50,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "EG",
+      "name": "Sustain",
+      "description": null,
+      "cc": 51,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "VCF",
+      "name": "Cutoff",
+      "description": null,
+      "cc": 44,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "VCF",
+      "name": "VCF EG intensity",
+      "description": null,
+      "cc": 45,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "LFO",
+      "name": "Rate",
+      "description": null,
+      "cc": 46,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "LFO",
+      "name": "Pitch intensity",
+      "description": null,
+      "cc": 47,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "LFO",
+      "name": "Cutoff intensity",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Delay",
+      "name": "Delay time",
+      "description": null,
+      "cc": 52,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Delay",
+      "name": "Delay feedback",
+      "description": null,
+      "cc": 53,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    }
+  ]
+}

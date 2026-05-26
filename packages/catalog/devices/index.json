@@ -1,0 +1,58 @@
+[
+  {
+    "file": "KORG-Volca-Bass.json",
+    "slug": "korg-volca-bass",
+    "manufacturer": "KORG",
+    "device": "volca bass",
+    "parameters": 12
+  },
+  {
+    "file": "KORG-Volca-Beats.json",
+    "slug": "korg-volca-beats",
+    "manufacturer": "KORG",
+    "device": "volca beats",
+    "parameters": 20
+  },
+  {
+    "file": "KORG-Volca-Drum.json",
+    "slug": "korg-volca-drum",
+    "manufacturer": "KORG",
+    "device": "volca drum",
+    "parameters": 31
+  },
+  {
+    "file": "KORG-Volca-Fm.json",
+    "slug": "korg-volca-fm",
+    "manufacturer": "KORG",
+    "device": "volca fm",
+    "parameters": 11
+  },
+  {
+    "file": "KORG-Volca-Keys.json",
+    "slug": "korg-volca-keys",
+    "manufacturer": "KORG",
+    "device": "volca keys",
+    "parameters": 16
+  },
+  {
+    "file": "KORG-Volca-Kick.json",
+    "slug": "korg-volca-kick",
+    "manufacturer": "KORG",
+    "device": "volca kick",
+    "parameters": 10
+  },
+  {
+    "file": "KORG-Volca-Nubass.json",
+    "slug": "korg-volca-nubass",
+    "manufacturer": "KORG",
+    "device": "volca nubass",
+    "parameters": 11
+  },
+  {
+    "file": "KORG-Volca-Sample.json",
+    "slug": "korg-volca-sample",
+    "manufacturer": "KORG",
+    "device": "volca sample",
+    "parameters": 11
+  }
+]

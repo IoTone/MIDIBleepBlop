@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/a269f562-e5ac-4583-b3a6-e6aeaf512dc1>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> d937b002-b251-467b-9f01-da4917b398a8
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> d937b002-b251-467b-9f01-da4917b398a8
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> d20ec149-7554-4acd-81d2-5cc32dc58128
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/d20ec149-7554-4acd-81d2-5cc32dc58128>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 5f25bd7f-e7d9-4900-8615-a12806c386ca
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    channel: false
+    holdSec: false
+    intervalSec: false
+    midi: false
+    rootNote: false
+    velocity: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      rootNote: !<float> 60.000000
+      velocity: !<float> 90.000000
+      intervalSec: 1.500000
+      holdSec: !<float> 1.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
+    - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
+    - '// @input float rootNote = 60 {"hint":"Root note of the major triad. 60 = middle C. Try 48 (low C) or 72 (high C)."}'
+    - '// @input float velocity = 90 {"hint":"Note velocity, 1-127"}'
+    - '// @input float intervalSec = 1.5 {"hint":"Seconds between chord triggers"}'
+    - '// @input float holdSec = 1 {"hint":"How long each chord is held, in seconds (must be < intervalSec)"}'

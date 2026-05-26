@@ -1,0 +1,174 @@
+{
+  "_source": "vendor/pencilresearch-midi/KORG/volca sample.csv",
+  "_license": "CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md)",
+  "manufacturer": "KORG",
+  "device": "volca sample",
+  "slug": "korg-volca-sample",
+  "parameters": [
+    {
+      "section": "Sample",
+      "name": "Level",
+      "description": null,
+      "cc": 7,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Sample",
+      "name": "Pan",
+      "description": null,
+      "cc": 10,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Sample",
+      "name": "Sample start point",
+      "description": null,
+      "cc": 40,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Sample",
+      "name": "Sample length",
+      "description": null,
+      "cc": 41,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Sample",
+      "name": "Hi cutoff",
+      "description": null,
+      "cc": 42,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Sample",
+      "name": "Speed",
+      "description": null,
+      "cc": 43,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelopes",
+      "name": "Pitch EG intensity",
+      "description": null,
+      "cc": 44,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelopes",
+      "name": "Pitch EG attack",
+      "description": null,
+      "cc": 45,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelopes",
+      "name": "Pitch EG decay",
+      "description": null,
+      "cc": 46,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelopes",
+      "name": "Amp EG attack",
+      "description": null,
+      "cc": 47,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelopes",
+      "name": "Amp EG decay",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "@midi-bleep-bop/catalog",
+  "version": "0.1.0",
+  "description": "Per-device MIDI CC catalogs for midi-bleep-bop. Data is CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md).",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./devices/*": "./devices/*"
+  },
+  "files": ["dist", "src", "devices"],
+  "scripts": {
+    "build": "tsc --build"
+  }
+}

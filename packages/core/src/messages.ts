@@ -1,6 +1,6 @@
 export type NoteOn = { type: 'noteOn'; channel: number; note: number; velocity: number };
 export type NoteOff = { type: 'noteOff'; channel: number; note: number; velocity: number };
-export type CC = { type: 'cc'; channel: number; controller: number; value: number };
+export type CCMessage = { type: 'cc'; channel: number; controller: number; value: number };
 export type ProgramChange = { type: 'programChange'; channel: number; program: number };
 export type PitchBend = { type: 'pitchBend'; channel: number; value: number };
 export type ChannelPressure = { type: 'channelPressure'; channel: number; pressure: number };
@@ -10,7 +10,7 @@ export type Raw = { type: 'raw'; bytes: Uint8Array };
 export type MidiMessage =
   | NoteOn
   | NoteOff
-  | CC
+  | CCMessage
   | ProgramChange
   | PitchBend
   | ChannelPressure

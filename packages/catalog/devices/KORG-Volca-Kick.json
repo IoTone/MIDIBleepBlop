@@ -1,0 +1,159 @@
+{
+  "_source": "vendor/pencilresearch-midi/KORG/volca kick.csv",
+  "_license": "CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md)",
+  "manufacturer": "KORG",
+  "device": "volca kick",
+  "slug": "korg-volca-kick",
+  "parameters": [
+    {
+      "section": "General",
+      "name": "Pulse color",
+      "description": null,
+      "cc": 40,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Pulse level",
+      "description": null,
+      "cc": 41,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Amp attack",
+      "description": null,
+      "cc": 42,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Amp decay",
+      "description": null,
+      "cc": 43,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Drive",
+      "description": null,
+      "cc": 44,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Tone",
+      "description": null,
+      "cc": 45,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Resonator pitch",
+      "description": null,
+      "cc": 46,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Resonator bend",
+      "description": null,
+      "cc": 47,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Resonator time",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Accent",
+      "description": null,
+      "cc": 49,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    }
+  ]
+}

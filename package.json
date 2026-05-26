@@ -12,6 +12,7 @@
   "scripts": {
     "build": "tsc --build",
     "build:lens": "node scripts/build-lens.mjs",
+    "build:catalog": "node scripts/build-catalog.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:iac": "node scripts/iac-loopback.mjs",

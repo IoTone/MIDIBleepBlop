@@ -18,7 +18,11 @@ const sources = [
   'packages/core/src/messages.ts',
   'packages/core/src/state.ts',
   'packages/core/src/transport.ts',
+  'packages/core/src/cc-constants.ts',
+  'packages/core/src/cc-mapper.ts',
   'packages/core/src/client.ts',
+  'packages/catalog/src/types.ts',
+  'packages/catalog/src/catalog.ts',
   'packages/transport-spectacles-ws/src/index.ts',
 ];
 

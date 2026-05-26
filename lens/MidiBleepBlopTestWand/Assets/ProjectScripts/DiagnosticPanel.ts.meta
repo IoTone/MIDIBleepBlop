@@ -1,0 +1,62 @@
+- !<AssetImportMetadata/b08472f7-2920-4cbd-bb65-94c9ac2d1ecc>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> fdc4a047-724f-450b-b617-5bebe618fa49
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> fdc4a047-724f-450b-b617-5bebe618fa49
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 170c1b01-0da4-4f28-b971-e9733bfc54fb
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/170c1b01-0da4-4f28-b971-e9733bfc54fb>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: fc1b80d3-5a56-466e-9881-00794815d253
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    channel: false
+    heldNotesText: false
+    lastCCText: false
+    lastEventText: false
+    messageCountText: false
+    midi: false
+    statusText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      lastEventText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      heldNotesText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      lastCCText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      messageCountText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the connection (drop the MidiClient prefab here)"}'
+    - '// @input float channel {"hint":"MIDI channel to monitor (0–15). Set to -1 to monitor all channels."}'
+    - '// @input Component.Text statusText {"hint":"Text component showing connection state (connecting / open / closed)"}'
+    - '// @input Component.Text lastEventText {"hint":"Text component showing the most recent MIDI event"}'
+    - '// @input Component.Text heldNotesText {"hint":"Text component showing the list of currently held notes on the monitored channel"}'
+    - '// @input Component.Text lastCCText {"hint":"Text component showing the most recent CC change"}'
+    - '// @input Component.Text messageCountText {"hint":"Text component showing a rolling count of total incoming messages"}'

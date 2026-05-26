@@ -1,0 +1,56 @@
+- !<AssetImportMetadata/4aa578c3-1e3a-416d-a06f-ef5fb4147f2c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 8e7beaf8-50b4-429b-80a5-34b8727dfef6
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 8e7beaf8-50b4-429b-80a5-34b8727dfef6
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 67e6869a-ce37-4bb6-ad7a-7aa39615ca05
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/67e6869a-ce37-4bb6-ad7a-7aa39615ca05>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: d2407df4-44ce-43f5-a32a-6f188634f417
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    channel: false
+    flashScale: false
+    midi: false
+    restScale: false
+    target: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      target: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      restScale: !<float> 1.000000
+      flashScale: 1.500000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the connection"}'
+    - '// @input float channel {"hint":"MIDI channel to monitor (0–15). Set to -1 to flash on any channel."}'
+    - '// @input SceneObject target {"hint":"The SceneObject to scale up while notes are held"}'
+    - '// @input float restScale = 1 {"hint":"Scale applied when no notes are held"}'
+    - '// @input float flashScale = 1.5 {"hint":"Scale applied while at least one note is held"}'

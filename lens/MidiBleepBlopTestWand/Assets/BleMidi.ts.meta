@@ -1,0 +1,47 @@
+- !<AssetImportMetadata/af5134b2-6856-4e16-bef3-57cd48f943e7>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 2f13362a-bf1e-4b10-b678-cd730feb6239
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 2f13362a-bf1e-4b10-b678-cd730feb6239
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e0808de6-cb09-4496-93aa-83d9216d901f
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e0808de6-cb09-4496-93aa-83d9216d901f>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 9639c4dc-f12d-4f95-b4ff-5c741512caf2
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    bluetoothModule: false
+    targetObject: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - bluetoothModule: !<reference.BluetoothCentralModule> 00000000-0000-0000-0000-000000000000
+      targetObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.BluetoothCentralModule bluetoothModule {"hint":"Bluetooth Central Module for BLE-MIDI"}'
+    - '// @input SceneObject targetObject {"hint":"The SceneObject to control with BLE-MIDI (e.g., Cube or Quad)"}'

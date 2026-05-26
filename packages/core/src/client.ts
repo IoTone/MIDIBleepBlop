@@ -1,7 +1,7 @@
 import {
   encodeMessage,
   parseMessage,
-  type CC,
+  type CCMessage,
   type ChannelPressure,
   type MidiMessage,
   type NoteOff,
@@ -18,7 +18,7 @@ type EventPayloads = {
   message: MidiMessage;
   noteOn: NoteOn;
   noteOff: NoteOff;
-  cc: CC;
+  cc: CCMessage;
   programChange: ProgramChange;
   pitchBend: PitchBend;
   channelPressure: ChannelPressure;
@@ -31,6 +31,10 @@ type EventName = keyof EventPayloads;
 export class MidiClient {
   private readonly listeners = new Map<EventName, Set<(payload: unknown) => void>>();
   private readonly ccChangeListeners = new Map<string, Set<(value: number, previous: number | undefined) => void>>();
+  private readonly anyCCChangeListeners = new Map<
+    number,
+    Set<(controller: number, value: number, previous: number | undefined) => void>
+  >();
   private readonly noteHeldListeners = new Map<string, Set<(held: boolean, velocity: number) => void>>();
   private readonly programChangeListeners = new Map<number, Set<(program: number) => void>>();
   private readonly midiState = new MidiState();
@@ -138,6 +142,33 @@ export class MidiClient {
     return () => bucket.delete(handler);
   }
 
+  /**
+   * Fires whenever any CC value on the channel changes (including first sight).
+   * Useful when the lens doesn't know up-front which CCs the source will send.
+   */
+  onAnyCCChange(
+    channel: number,
+    handler: (controller: number, value: number, previous: number | undefined) => void,
+  ): Unsubscribe {
+    let bucket = this.anyCCChangeListeners.get(channel);
+    if (!bucket) {
+      bucket = new Set();
+      this.anyCCChangeListeners.set(channel, bucket);
+    }
+    bucket.add(handler);
+    return () => bucket.delete(handler);
+  }
+
+  /**
+   * Returns the controller numbers that have been seen on the channel, sorted
+   * ascending. Empty array if no CCs have arrived (or the channel is invalid).
+   */
+  observedCCs(channel: number): number[] {
+    const ch = this.midiState.get(channel);
+    if (!ch) return [];
+    return [...ch.cc.keys()].sort((a, b) => a - b);
+  }
+
   onNoteHeld(
     channel: number,
     note: number,
@@ -238,9 +269,14 @@ export class MidiClient {
   ): void {
     if (msg.type === 'cc') {
       if (prev.ccPrev === msg.value) return;
-      const bucket = this.ccChangeListeners.get(`${msg.channel}:${msg.controller}`);
-      if (!bucket) return;
-      for (const h of bucket) h(msg.value, prev.ccPrev);
+      const perCcBucket = this.ccChangeListeners.get(`${msg.channel}:${msg.controller}`);
+      if (perCcBucket) {
+        for (const h of perCcBucket) h(msg.value, prev.ccPrev);
+      }
+      const anyBucket = this.anyCCChangeListeners.get(msg.channel);
+      if (anyBucket) {
+        for (const h of anyBucket) h(msg.controller, msg.value, prev.ccPrev);
+      }
       return;
     }
 

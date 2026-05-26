@@ -1,0 +1,71 @@
+- !<AssetImportMetadata/a7ee0059-528e-4e54-b3da-9616093b073c>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 9e088c02-eabd-4bc7-adab-14088eb3e1f0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 9e088c02-eabd-4bc7-adab-14088eb3e1f0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 682d6452-686b-477b-86fc-438498f21396
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/682d6452-686b-477b-86fc-438498f21396>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: c8c6ae8d-c2d5-4e47-b177-d5116b655dbc
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    channel: false
+    controller: false
+    device: false
+    inputMax: false
+    inputMin: false
+    midi: false
+    outputMax: false
+    outputMin: false
+    parameterName: false
+    smoothingFactor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      controller: !<float> 1.000000
+      device: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      parameterName: ""
+      inputMin: !<float> 0.000000
+      inputMax: !<float> 127.000000
+      outputMin: !<float> 0.000000
+      outputMax: !<float> 1.000000
+      smoothingFactor: !<float> 0.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
+    - '// @input float channel {"hint":"MIDI channel (0-15)"}'
+    - '// @input float controller = 1 {"hint":"CC number (0-127). Common: 1=ModWheel, 7=Volume, 11=Expression, 74=FilterCutoff. Overridden by parameterName if a device catalog is wired."}'
+    - '// @input AssignableType_1 device {"hint":"Optional. If wired, parameterName resolves the controller via the device catalog."}'
+    - '// @input string parameterName {"hint":"Optional. Name of the parameter on the wired device (e.g. \"LFO rate\", \"Filter Cutoff\"). Case-insensitive. Falls back to `controller` if blank or unresolved."}'
+    - '// @input float inputMin {"hint":"Raw input minimum (typically 0)"}'
+    - '// @input float inputMax = 127 {"hint":"Raw input maximum (typically 127)"}'
+    - '// @input float outputMin {"hint":"Scaled output minimum"}'
+    - '// @input float outputMax = 1 {"hint":"Scaled output maximum"}'
+    - '// @input float smoothingFactor {"hint":"Exponential moving average factor. 0 = instant (no smoothing). ~0.9 = very smooth."}'

@@ -171,6 +171,56 @@ describe('MidiClient — state observations', () => {
   });
 });
 
+describe('MidiClient — CC discovery', () => {
+  it('observedCCs returns sorted unique controllers seen on the channel', () => {
+    const t = new MockTransport();
+    const c = new MidiClient(t);
+    expect(c.observedCCs(0)).toEqual([]);
+
+    t.simulateMessage(new Uint8Array([0xb0, 7, 100]));
+    t.simulateMessage(new Uint8Array([0xb0, 1, 64]));
+    t.simulateMessage(new Uint8Array([0xb0, 7, 90])); // dup controller
+    t.simulateMessage(new Uint8Array([0xb0, 74, 50]));
+
+    expect(c.observedCCs(0)).toEqual([1, 7, 74]);
+    expect(c.observedCCs(1)).toEqual([]); // different channel
+  });
+
+  it('onAnyCCChange fires for every channel CC change', () => {
+    const t = new MockTransport();
+    const c = new MidiClient(t);
+    const events: Array<{ ctrl: number; value: number; prev: number | undefined }> = [];
+    c.onAnyCCChange(0, (ctrl, value, prev) => events.push({ ctrl, value, prev }));
+
+    t.simulateMessage(new Uint8Array([0xb0, 1, 64]));
+    t.simulateMessage(new Uint8Array([0xb0, 11, 100]));
+    t.simulateMessage(new Uint8Array([0xb0, 1, 64])); // duplicate — should NOT fire
+    t.simulateMessage(new Uint8Array([0xb0, 1, 65]));
+
+    expect(events).toEqual([
+      { ctrl: 1, value: 64, prev: undefined },
+      { ctrl: 11, value: 100, prev: undefined },
+      { ctrl: 1, value: 65, prev: 64 },
+    ]);
+  });
+
+  it('onAnyCCChange is channel-scoped', () => {
+    const t = new MockTransport();
+    const c = new MidiClient(t);
+    const ch0: number[] = [];
+    const ch1: number[] = [];
+    c.onAnyCCChange(0, (ctrl) => ch0.push(ctrl));
+    c.onAnyCCChange(1, (ctrl) => ch1.push(ctrl));
+
+    t.simulateMessage(new Uint8Array([0xb0, 1, 64])); // ch0
+    t.simulateMessage(new Uint8Array([0xb1, 7, 100])); // ch1
+    t.simulateMessage(new Uint8Array([0xb0, 11, 80])); // ch0
+
+    expect(ch0).toEqual([1, 11]);
+    expect(ch1).toEqual([7]);
+  });
+});
+
 describe('MidiClient — lifecycle', () => {
   it('connect() resolves immediately if already open', async () => {
     const t = new MockTransport();

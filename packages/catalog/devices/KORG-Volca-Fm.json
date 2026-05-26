@@ -1,0 +1,174 @@
+{
+  "_source": "vendor/pencilresearch-midi/KORG/volca fm.csv",
+  "_license": "CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md)",
+  "manufacturer": "KORG",
+  "device": "volca fm",
+  "slug": "korg-volca-fm",
+  "parameters": [
+    {
+      "section": "General",
+      "name": "Transpose",
+      "description": null,
+      "cc": 40,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "centered",
+      "usage": null,
+      "notes": "-36 to +36 semitones (TRANSPS NOTE) or -3 to +3 octaves",
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Velocity",
+      "description": null,
+      "cc": 41,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Modulator attack",
+      "description": null,
+      "cc": 42,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Modulator decay",
+      "description": null,
+      "cc": 43,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Carrier attack",
+      "description": null,
+      "cc": 44,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Carrier decay",
+      "description": null,
+      "cc": 45,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "LFO rate",
+      "description": null,
+      "cc": 46,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "LFO pitch depth",
+      "description": null,
+      "cc": 47,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Algorithm",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Arpeggiator type",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Arpeggiator div",
+      "description": null,
+      "cc": 50,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    }
+  ]
+}

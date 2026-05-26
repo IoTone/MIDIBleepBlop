@@ -1,0 +1,474 @@
+{
+  "_source": "vendor/pencilresearch-midi/KORG/volca drum.csv",
+  "_license": "CC-BY-SA-4.0 (see THIRD-PARTY-NOTICES.md)",
+  "manufacturer": "KORG",
+  "device": "volca drum",
+  "slug": "korg-volca-drum",
+  "parameters": [
+    {
+      "section": "General",
+      "name": "Pan",
+      "description": null,
+      "cc": 10,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Select",
+      "name": "Select 1",
+      "description": null,
+      "cc": 14,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Select",
+      "name": "Select 2",
+      "description": null,
+      "cc": 15,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Select",
+      "name": "Select 1-2",
+      "description": null,
+      "cc": 16,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Level",
+      "name": "Level 1",
+      "description": null,
+      "cc": 17,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Level",
+      "name": "Level 2",
+      "description": null,
+      "cc": 18,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Level",
+      "name": "Level 1-2",
+      "description": null,
+      "cc": 19,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG attack 1",
+      "description": null,
+      "cc": 20,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG attack 2",
+      "description": null,
+      "cc": 21,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG attack 1-2",
+      "description": null,
+      "cc": 22,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG release 1",
+      "description": null,
+      "cc": 23,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG release 2",
+      "description": null,
+      "cc": 24,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Envelope generator",
+      "name": "EG release 1-2",
+      "description": null,
+      "cc": 25,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Pitch",
+      "name": "Pitch 1",
+      "description": null,
+      "cc": 26,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Pitch",
+      "name": "Pitch 2",
+      "description": null,
+      "cc": 27,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Pitch",
+      "name": "Pitch 1-2",
+      "description": null,
+      "cc": 28,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod amount 1",
+      "description": null,
+      "cc": 29,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod amount 2",
+      "description": null,
+      "cc": 30,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod amount 1-2",
+      "description": null,
+      "cc": 31,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod rate 1",
+      "description": null,
+      "cc": 46,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod rate 2",
+      "description": null,
+      "cc": 47,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "Mod",
+      "name": "Mod rate 1-2",
+      "description": null,
+      "cc": 48,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Bit reduction",
+      "description": null,
+      "cc": 49,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Fold",
+      "description": null,
+      "cc": 50,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Drive",
+      "description": null,
+      "cc": 51,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Dry gain",
+      "description": null,
+      "cc": 52,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Send",
+      "description": null,
+      "cc": 103,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Waveguide model",
+      "description": null,
+      "cc": 116,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Decay",
+      "description": null,
+      "cc": 117,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Body",
+      "description": null,
+      "cc": 118,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    },
+    {
+      "section": "General",
+      "name": "Tune",
+      "description": null,
+      "cc": 119,
+      "ccRange": {
+        "min": 0,
+        "max": 127
+      },
+      "ccDefault": null,
+      "orientation": "0-based",
+      "usage": null,
+      "notes": null,
+      "nrpn": null
+    }
+  ]
+}
