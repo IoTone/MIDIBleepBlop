@@ -16,3 +16,9 @@ You can add to this.  It needs, a connect button.  For now, it is set up to allo
 - Add a SHIM wrapper to make spectacles Web Sockets more api compatible with existing JS websockets in the browser.
 - Add a more useful sample
 - Add a standalone server example to use with this
+
+## Attributions
+
+- A piano think sound: https://freesound.org/people/eyenorth/sounds/402839/
+- A short click: https://freesound.org/people/ironcross32/sounds/582903/
+

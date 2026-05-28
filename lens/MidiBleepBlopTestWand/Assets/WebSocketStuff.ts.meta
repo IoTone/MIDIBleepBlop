@@ -27,6 +27,7 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     editButtonToggle: false
+    keyboardMode: false
     textInputURL: false
   ScriptTypesHidden:
     {}
@@ -39,9 +40,11 @@
   DefaultScriptInputs:
     - textInputURL: !<reference.Text> 00000000-0000-0000-0000-000000000000
       editButtonToggle: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      keyboardMode: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
     - // @input Component.Text textInputURL
     - // @input AssignableType editButtonToggle
+    - // @input AssignableType_1 keyboardMode

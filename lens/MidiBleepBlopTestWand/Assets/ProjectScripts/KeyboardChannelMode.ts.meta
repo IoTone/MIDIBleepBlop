@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/40d8f605-51b3-42c8-a984-d31ce5a86c23>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> e17cca08-d368-4ba7-9f5d-7cc15a696088
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> e17cca08-d368-4ba7-9f5d-7cc15a696088
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> f343f5ad-0918-47a2-9dbd-26a8f79a4238
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/f343f5ad-0918-47a2-9dbd-26a8f79a4238>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 32819a9c-5c7a-4fec-a1be-6c74fff43b52
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    channel: false
+    midi: false
+    noteHoldMs: false
+    startOctave: false
+    startVelocity: false
+    statusText: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      startOctave: !<float> 3.000000
+      startVelocity: !<float> 64.000000
+      noteHoldMs: !<float> 200.000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
+    - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
+    - '// @input float startOctave = 3 {"hint":"Starting octave. Default 3 = A on the home row plays MIDI C3 (60), Ableton convention."}'
+    - '// @input float startVelocity = 64 {"hint":"Starting velocity, 1-127"}'
+    - '// @input float noteHoldMs = 200 {"hint":"How long each tapped note is held before note-off, in ms"}'
+    - '// @input Component.Text statusText {"hint":"Optional Text to show \"Octave: 3  Vel: 64\" — updates on octave/velocity changes"}'

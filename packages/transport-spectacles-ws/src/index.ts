@@ -137,6 +137,8 @@ export class SpectaclesWebSocketTransport implements Transport {
       return;
     }
 
+    this.log('[midi-bleep-bop] connecting to ' + this.options.url);
+
     let socket: LSWebSocket;
     try {
       socket = module.createWebSocket(this.options.url);
@@ -149,9 +151,11 @@ export class SpectaclesWebSocketTransport implements Transport {
 
     socket.binaryType = 'blob';
     this.socket = socket;
+    this.log('[midi-bleep-bop] socket created (binaryType=blob), awaiting open');
 
     socket.onopen = (): void => {
       this.reconnectAttempt = 0;
+      this.log('[midi-bleep-bop] OPEN: ' + this.options.url);
       this.setState('open');
     };
 

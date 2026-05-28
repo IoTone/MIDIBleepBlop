@@ -1,0 +1,98 @@
+- !<AssetImportMetadata/254116a9-156c-4289-948d-d60de176e289>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 9b587c6f-41cb-4a0b-bc61-e68978a79c61
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 9b587c6f-41cb-4a0b-bc61-e68978a79c61
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 7ee0ade0-6e70-40f7-b6ed-3f147cf5de90
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/7ee0ade0-6e70-40f7-b6ed-3f147cf5de90>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 8b45326a-ed9e-460d-8983-a77a08252973
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    blackColor: false
+    blackKeyDepth: false
+    blackKeyHeight: false
+    blackKeyWidth: false
+    channel: false
+    keyCount: false
+    keyDownAudio: false
+    keyMaterial: false
+    keysMovable: false
+    labelFont: false
+    midi: false
+    parentObject: false
+    pressColor: false
+    startNote: false
+    velocity: false
+    whiteColor: false
+    whiteKeyDepth: false
+    whiteKeyHeight: false
+    whiteKeyWidth: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      channel: !<float> 0.000000
+      keyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      whiteColor: !<Vec4> {x: 0.950000, y: 0.950000, z: 0.950000, w: 1.000000}
+      blackColor: !<Vec4> {x: 0.080000, y: 0.080000, z: 0.080000, w: 1.000000}
+      pressColor: !<Vec4> {x: 0.250000, y: 0.600000, z: 1.000000, w: 1.000000}
+      parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      keyDownAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      labelFont: !<reference.Font> 00000000-0000-0000-0000-000000000000
+      startNote: !<float> 60.000000
+      keyCount: !<float> 13.000000
+      velocity: !<float> 100.000000
+      whiteKeyWidth: 2.200000
+      whiteKeyHeight: !<float> 9.000000
+      whiteKeyDepth: 1.500000
+      blackKeyWidth: 1.300000
+      blackKeyHeight: 5.500000
+      blackKeyDepth: 1.800000
+      keysMovable: false
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection. (Only required input.)"}'
+    - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
+    - '// @input Asset.Material keyMaterial {"hint":"Optional. A material cloned + tinted per key. If empty, keys use the default material (color feedback may not apply). Recommended: wire any Unlit or PBR material."}'
+    - '// @input vec4 whiteColor = "{0.95, 0.95, 0.95, 1.0}" {"hint":"White-key color"}'
+    - '// @input vec4 blackColor = "{0.08, 0.08, 0.08, 1.0}" {"hint":"Black-key color"}'
+    - '// @input vec4 pressColor = "{0.25, 0.6, 1.0, 1.0}" {"hint":"Color a key flashes to while pressed"}'
+    - "// @input SceneObject parentObject {\"hint\":\"Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). Grab it to move the whole keyboard. If empty, keys parent under this object.\"}"
+    - '// @input Asset.AudioTrackAsset keyDownAudio {"hint":"Optional sound played when a key is pressed"}'
+    - '// @input Asset.Font labelFont {"hint":"Optional font for the key labels"}'
+    - '// @input float startNote = 60 {"hint":"Lowest MIDI note (60 = C3)"}'
+    - '// @input float keyCount = 13 {"hint":"Number of keys to generate (white + black)"}'
+    - '// @input float velocity = 100 {"hint":"Velocity sent on key press (1-127)"}'
+    - // @input float whiteKeyWidth = 2.2
+    - // @input float whiteKeyHeight = 9
+    - // @input float whiteKeyDepth = 1.5
+    - // @input float blackKeyWidth = 1.3
+    - // @input float blackKeyHeight = 5.5
+    - // @input float blackKeyDepth = 1.8
+    - '// @input bool keysMovable {"hint":"If true, adds InteractableManipulation so keys can be grabbed/moved. Default false so pressing plays cleanly."}'

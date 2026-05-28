@@ -650,7 +650,7 @@
   PrefabRemaps:
     []
   Name: widgetframe
-  Enabled: true
+  Enabled: false
   Layers: 1
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
@@ -1364,6 +1364,55 @@
   ScriptTypes:
     "":
       {}
+- !<ScriptComponent/57dbf20f-22ef-4075-80d6-f07474d99780>
+  PrefabRemaps:
+    []
+  Name: PianoKeyboard
+  Enabled: true
+  ScriptAsset: !<reference> 9b587c6f-41cb-4a0b-bc61-e68978a79c61
+  ScriptInputsDefault:
+    channel: true
+    whiteColor: true
+    blackColor: true
+    pressColor: true
+    parentObject: true
+    labelFont: true
+    startNote: true
+    keyCount: true
+    velocity: true
+    whiteKeyWidth: true
+    whiteKeyHeight: true
+    whiteKeyDepth: true
+    blackKeyWidth: true
+    blackKeyHeight: true
+    blackKeyDepth: true
+    keysMovable: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      midi: !<MappingBased.AssignableType> e98be3c5-7ebe-4658-b5f4-578ea49d348f
+      channel: !<float> 0.000000
+      keyMaterial: !<reference.Material> 815c5d6b-9cce-4fae-adaf-dd9e4a6aa263
+      whiteColor: !<Vec4> {x: 0.950000, y: 0.950000, z: 0.950000, w: 1.000000}
+      blackColor: !<Vec4> {x: 0.080000, y: 0.080000, z: 0.080000, w: 1.000000}
+      pressColor: !<Vec4> {x: 0.250000, y: 0.600000, z: 1.000000, w: 1.000000}
+      parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      keyDownAudio: !<reference.AudioTrackAsset> 639ec359-5bbc-45cd-b7a4-51fe519d8b81
+      labelFont: !<reference.Font> 00000000-0000-0000-0000-000000000000
+      startNote: !<float> 60.000000
+      keyCount: !<float> 13.000000
+      velocity: !<float> 100.000000
+      whiteKeyWidth: 2.200000
+      whiteKeyHeight: !<float> 9.000000
+      whiteKeyDepth: 1.500000
+      blackKeyWidth: 1.300000
+      blackKeyHeight: 5.500000
+      blackKeyDepth: 1.800000
+      keysMovable: false
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/583e767d-67b4-4146-95d2-344b2e3229a2>
   PrefabRemaps:
     []
@@ -1432,6 +1481,71 @@
   ForceCompound: false
   Intangible: false
   ShowCollider: false
+- !<ScriptComponent/5e65bbbf-e37c-4f84-9005-ce9532170c68>
+  PrefabRemaps:
+    []
+  Name: ContainerFrame
+  Enabled: true
+  ScriptAsset: !<reference> 94ea82ba-1d42-4617-b71f-c92262f5960b
+  ScriptInputsDefault:
+    innerSize: true
+    border: true
+    constantPadding: true
+    allowScaling: true
+    autoScaleContent: true
+    relativeZ: true
+    allowTranslation: true
+    cutOut: true
+    minimumSize: true
+    maximumSize: true
+    xOnTranslate: true
+    xAlways: true
+    yOnTranslate: true
+    yAlways: true
+    useSnapping: true
+    itemSnapping: true
+    worldSnapping: true
+    showFollowButton: true
+    useFOVFollow: true
+    isFollowing: true
+    showCloseButton: true
+    _enableInteractionPlane: true
+    _targetingVisual: true
+    isSynced: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      autoShowHide: false
+      innerSize: !<Vec2> {x: 32.000000, y: 32.000000}
+      border: !<float> 4.000000
+      constantPadding: !<Vec2> {x: 0.000000, y: 0.000000}
+      allowScaling: true
+      autoScaleContent: true
+      relativeZ: false
+      isContentInteractable: true
+      allowTranslation: true
+      cutOut: false
+      minimumSize: !<Vec2> {x: 10.000000, y: 10.000000}
+      maximumSize: !<Vec2> {x: 300.000000, y: 300.000000}
+      useBillboarding: true
+      xOnTranslate: false
+      xAlways: false
+      yOnTranslate: false
+      yAlways: false
+      useSnapping: false
+      itemSnapping: false
+      worldSnapping: false
+      showFollowButton: false
+      useFOVFollow: false
+      isFollowing: false
+      showCloseButton: true
+      _enableInteractionPlane: false
+      _targetingVisual: !<float> 1.000000
+      isSynced: false
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/5e899e23-1af6-4e88-99ca-a9afead3f405>
   PrefabRemaps:
     []
@@ -1602,6 +1716,7 @@
     "":
       textInputURL: !<reference.Text> bec081bb-769e-4153-8257-dad8ae8fb85c
       editButtonToggle: !<MappingBased.AssignableType> 275a3876-02cd-41ea-9ed5-aab9b5889357
+      keyboardMode: !<MappingBased.AssignableType_1> 801ac220-0c87-4d01-bb83-15c5054b8a87
   ScriptTypes:
     "":
       {}
@@ -1689,6 +1804,87 @@
     - !<own> 872b9972-065e-4c92-9279-1d02cead48e6
   Components:
     []
+- !<Text/754bc8cf-aa5c-4c75-8b97-5fab557d2260>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Text: Text
+  Editable: false
+  ShowEditingPreview: true
+  TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
+  SizeToFit: false
+  FontSize: 48
+  Font: !<reference> 00000000-0000-0000-0000-000000000000
+  LayoutRect:
+    left: -7.500000
+    bottom: -2.250000
+    right: 7.500000
+    top: 2.250000
+  OverflowVertical: Overflow
+  OverflowHorizontal: Overflow
+  Fill: !<TextFill>
+    Mode: Solid
+    Color: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    Texture: !<reference> 00000000-0000-0000-0000-000000000000
+    ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+    TileCount: 5.000000
+    TileZone: Rect
+    TextureStretch: FitWidth
+  BlendMode: PremultipliedAlpha
+  Outline: !<OutlineSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Size: 0.250000
+  Dropshadow: !<DropshadowSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    OffsetX: 0.250000
+    OffsetY: 0.250000
+  Background: !<BackgroundSettings>
+    Enabled: false
+    Fill: !<TextFill>
+      Mode: Solid
+      Color: {x: 0.000000, y: 0.000000, z: 0.000000, w: 1.000000}
+      Texture: !<reference> 00000000-0000-0000-0000-000000000000
+      ColorTint: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      TileCount: 5.000000
+      TileZone: Rect
+      TextureStretch: FitWidth
+    Margins:
+      left: 0.000000
+      bottom: 0.000000
+      right: 0.000000
+      top: 0.000000
+    CornerRadius: 0.000000
+  AdvancedLayout: !<TextAdvancedLayout>
+    ExtentsTarget: !<reference> 00000000-0000-0000-0000-000000000000
+    LetterSpacing: 0.000000
+    LineSpacing: 1.000000
+    CapitalizationOverride: None
+  DepthTest: false
+  TwoSided: false
 - !<SceneObject/75c5bb1c-db90-4b29-b950-0e675bd468c8>
   PrefabRemaps:
     []
@@ -1849,6 +2045,30 @@
     - !<own> 1101660d-417c-4234-ad7c-f15458e832a0
   Components:
     []
+- !<ScriptComponent/801ac220-0c87-4d01-bb83-15c5054b8a87>
+  PrefabRemaps:
+    []
+  Name: KeyboardChannelMode
+  Enabled: true
+  ScriptAsset: !<reference> e17cca08-d368-4ba7-9f5d-7cc15a696088
+  ScriptInputsDefault:
+    channel: true
+    startOctave: true
+    startVelocity: true
+    noteHoldMs: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      midi: !<MappingBased.AssignableType> e98be3c5-7ebe-4658-b5f4-578ea49d348f
+      channel: !<float> 0.000000
+      startOctave: !<float> 3.000000
+      startVelocity: !<float> 64.000000
+      noteHoldMs: !<float> 200.000000
+      statusText: !<reference.Text> 754bc8cf-aa5c-4c75-8b97-5fab557d2260
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/8076fc8d-cc04-4613-b0e3-abe3f4aa358e>
   PrefabRemaps:
     []
@@ -1963,6 +2183,21 @@
     []
   Components:
     - !<own> 3c183463-e5ea-4f73-9ced-3921ce9a9cfb
+- !<SceneObject/899268dd-3658-48df-b000-38c8edc36313>
+  PrefabRemaps:
+    []
+  Name: PianoKeyboard
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 10.000000, z: -10.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ec7034d3-a39d-40ee-8ee4-5b5d367f9422
+  Components:
+    - !<own> 57dbf20f-22ef-4075-80d6-f07474d99780
 - !<SceneObject/89bb538e-2dbd-4b80-b0b2-9332f47f717f>
   PrefabRemaps:
     []
@@ -2086,6 +2321,21 @@
     - !<own> 6556619a-c7b1-4439-b8f0-a2468d869f1e
   Components:
     []
+- !<SceneObject/90ec3dff-6d75-4963-9309-e84a6133ca68>
+  PrefabRemaps:
+    []
+  Name: Text
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 754bc8cf-aa5c-4c75-8b97-5fab557d2260
 - !<SceneObject/914529ae-4456-43aa-8935-73130ddfe953>
   PrefabRemaps:
     []
@@ -2403,6 +2653,21 @@
     - !<own> 8bb23f3d-dca0-45f2-b157-e64a85e2e17c
   Components:
     - !<own> 796948a4-0f1e-403e-b187-e3a30eb37145
+- !<SceneObject/a7ceef7a-a801-4886-a2a1-f1886b7216a2>
+  PrefabRemaps:
+    []
+  Name: KeyboardChannel
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 90ec3dff-6d75-4963-9309-e84a6133ca68
+  Components:
+    - !<own> 801ac220-0c87-4d01-bb83-15c5054b8a87
 - !<SceneObject/a87d43cc-24fe-40ad-bdbc-0728af689026>
   PrefabRemaps:
     []
@@ -2858,13 +3123,15 @@
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 2.935124, z: -120.029739}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 55.947201, y: 18.994959, z: 18.994959}
+    Scale: {x: 20.000000, y: 20.000000, z: 20.000000}
     HasSegmentScaleCompensation: false
   Children:
     - !<own> efa0d0f2-3637-4337-a75c-54f34159e485
     - !<own> 266fd553-0564-4f2d-9d38-ebecda39ef96
     - !<own> 14895d8c-5292-4d0c-b898-6acaac3cfe28
     - !<own> f3cbe498-49ec-46ec-8a87-6f2b11869161
+    - !<own> 899268dd-3658-48df-b000-38c8edc36313
+    - !<own> a7ceef7a-a801-4886-a2a1-f1886b7216a2
   Components:
     []
 - !<SceneObject/c8835075-75d9-47cd-9da1-bc2b07e123ce>
@@ -3022,6 +3289,7 @@
   Enabled: true
   ScriptAsset: !<reference> d937b002-b251-467b-9f01-da4917b398a8
   ScriptInputsDefault:
+    autoPlay: true
     channel: true
     rootNote: true
     velocity: true
@@ -3032,6 +3300,7 @@
   ScriptInputs:
     "":
       midi: !<MappingBased.AssignableType> e98be3c5-7ebe-4658-b5f4-578ea49d348f
+      autoPlay: false
       channel: !<float> 0.000000
       rootNote: !<float> 60.000000
       velocity: !<float> 90.000000
@@ -3516,6 +3785,21 @@
     - !<own> 589f738d-c226-4571-ba1c-fc9e089ebdba
   Components:
     []
+- !<SceneObject/ec7034d3-a39d-40ee-8ee4-5b5d367f9422>
+  PrefabRemaps:
+    []
+  Name: PianoContainerFrame
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 5e65bbbf-e37c-4f84-9005-ce9532170c68
 - !<SceneObject/ec93d603-c467-4935-8e33-bc28af4becf0>
   PrefabRemaps:
     []
@@ -3654,7 +3938,7 @@
 - !<SceneObject/f3cbe498-49ec-46ec-8a87-6f2b11869161>
   PrefabRemaps:
     []
-  Name: DiagnosticPnael
+  Name: DiagnosticPanel
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>

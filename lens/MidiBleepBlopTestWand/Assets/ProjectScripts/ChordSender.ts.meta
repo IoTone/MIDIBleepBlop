@@ -26,6 +26,7 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    autoPlay: false
     channel: false
     holdSec: false
     intervalSec: false
@@ -42,6 +43,7 @@
     []
   DefaultScriptInputs:
     - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
+      autoPlay: false
       channel: !<float> 0.000000
       rootNote: !<float> 60.000000
       velocity: !<float> 90.000000
@@ -52,6 +54,7 @@
       {}
   InputLines:
     - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
+    - '// @input bool autoPlay {"hint":"If true, the chord loop starts automatically on awake. Default false — call play() to start."}'
     - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
     - '// @input float rootNote = 60 {"hint":"Root note of the major triad. 60 = middle C. Try 48 (low C) or 72 (high C)."}'
     - '// @input float velocity = 90 {"hint":"Note velocity, 1-127"}'

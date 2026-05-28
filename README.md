@@ -12,3 +12,5 @@ Some form of BLE MIDI library that let's you generate midi notes from different 
 ### Controllers
 
 - Snap Spectacles '24
+
+
