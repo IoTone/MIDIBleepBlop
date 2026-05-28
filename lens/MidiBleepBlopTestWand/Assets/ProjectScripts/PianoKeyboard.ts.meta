@@ -26,24 +26,26 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
-    blackColor: false
     blackKeyDepth: false
     blackKeyHeight: false
+    blackKeyMaterial: false
     blackKeyWidth: false
     channel: false
+    heldNotesText: false
     keyCount: false
     keyDownAudio: false
-    keyMaterial: false
     keysMovable: false
     labelFont: false
+    maxHoldSec: false
     midi: false
     parentObject: false
-    pressColor: false
+    pressAnimFactor: false
+    pressDepth: false
     startNote: false
     velocity: false
-    whiteColor: false
     whiteKeyDepth: false
     whiteKeyHeight: false
+    whiteKeyMaterial: false
     whiteKeyWidth: false
   ScriptTypesHidden:
     {}
@@ -56,10 +58,8 @@
   DefaultScriptInputs:
     - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       channel: !<float> 0.000000
-      keyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
-      whiteColor: !<Vec4> {x: 0.950000, y: 0.950000, z: 0.950000, w: 1.000000}
-      blackColor: !<Vec4> {x: 0.080000, y: 0.080000, z: 0.080000, w: 1.000000}
-      pressColor: !<Vec4> {x: 0.250000, y: 0.600000, z: 1.000000, w: 1.000000}
+      whiteKeyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
+      blackKeyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       keyDownAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
       labelFont: !<reference.Font> 00000000-0000-0000-0000-000000000000
@@ -73,20 +73,22 @@
       blackKeyHeight: 5.500000
       blackKeyDepth: 1.800000
       keysMovable: false
+      pressDepth: 0.600000
+      pressAnimFactor: 0.350000
+      maxHoldSec: !<float> 5.000000
+      heldNotesText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
   InputLines:
-    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection. (Only required input.)"}'
+    - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection."}'
     - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
-    - '// @input Asset.Material keyMaterial {"hint":"Optional. A material cloned + tinted per key. If empty, keys use the default material (color feedback may not apply). Recommended: wire any Unlit or PBR material."}'
-    - '// @input vec4 whiteColor = "{0.95, 0.95, 0.95, 1.0}" {"hint":"White-key color"}'
-    - '// @input vec4 blackColor = "{0.08, 0.08, 0.08, 1.0}" {"hint":"Black-key color"}'
-    - '// @input vec4 pressColor = "{0.25, 0.6, 1.0, 1.0}" {"hint":"Color a key flashes to while pressed"}'
-    - "// @input SceneObject parentObject {\"hint\":\"Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). Grab it to move the whole keyboard. If empty, keys parent under this object.\"}"
+    - '// @input Asset.Material whiteKeyMaterial {"hint":"Material for white keys — color it in the LS material editor. Recommended: Unlit."}'
+    - '// @input Asset.Material blackKeyMaterial {"hint":"Material for black keys — color it (black/metallic) in the LS material editor. Recommended: Unlit."}'
+    - "// @input SceneObject parentObject {\"hint\":\"Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). If empty, keys parent under this object.\"}"
     - '// @input Asset.AudioTrackAsset keyDownAudio {"hint":"Optional sound played when a key is pressed"}'
     - '// @input Asset.Font labelFont {"hint":"Optional font for the key labels"}'
-    - '// @input float startNote = 60 {"hint":"Lowest MIDI note (60 = C3)"}'
+    - '// @input float startNote = 60 {"hint":"Lowest MIDI note (60 = C3; for a bass synth try 36 = C1)"}'
     - '// @input float keyCount = 13 {"hint":"Number of keys to generate (white + black)"}'
     - '// @input float velocity = 100 {"hint":"Velocity sent on key press (1-127)"}'
     - // @input float whiteKeyWidth = 2.2
@@ -96,3 +98,7 @@
     - // @input float blackKeyHeight = 5.5
     - // @input float blackKeyDepth = 1.8
     - '// @input bool keysMovable {"hint":"If true, adds InteractableManipulation so keys can be grabbed/moved. Default false so pressing plays cleanly."}'
+    - '// @input float pressDepth = 0.6 {"hint":"How far a key recedes (cm, into the keyboard) while held — the visible \"depress\"."}'
+    - '// @input float pressAnimFactor = 0.35 {"hint":"Depress animation speed, 0..1 per frame (higher = snappier)."}'
+    - '// @input float maxHoldSec = 5 {"hint":"Stuck-note safety net: a held note auto-releases after this many seconds if SIK never delivers a release event. 0 disables. Raise it if you want longer intentional holds."}'
+    - '// @input Component.Text heldNotesText {"hint":"Optional Text that shows currently-held note names (e.g. \"C3 E3 G3\"). Updates as you play."}'

@@ -1372,9 +1372,6 @@
   ScriptAsset: !<reference> 9b587c6f-41cb-4a0b-bc61-e68978a79c61
   ScriptInputsDefault:
     channel: true
-    whiteColor: true
-    blackColor: true
-    pressColor: true
     parentObject: true
     labelFont: true
     startNote: true
@@ -1387,16 +1384,18 @@
     blackKeyHeight: true
     blackKeyDepth: true
     keysMovable: true
+    pressDepth: true
+    pressAnimFactor: true
+    maxHoldSec: true
+    heldNotesText: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
     "":
       midi: !<MappingBased.AssignableType> e98be3c5-7ebe-4658-b5f4-578ea49d348f
       channel: !<float> 0.000000
-      keyMaterial: !<reference.Material> 815c5d6b-9cce-4fae-adaf-dd9e4a6aa263
-      whiteColor: !<Vec4> {x: 0.950000, y: 0.950000, z: 0.950000, w: 1.000000}
-      blackColor: !<Vec4> {x: 0.080000, y: 0.080000, z: 0.080000, w: 1.000000}
-      pressColor: !<Vec4> {x: 0.250000, y: 0.600000, z: 1.000000, w: 1.000000}
+      whiteKeyMaterial: !<reference.Material> f1ac1015-eccc-4585-b379-1c4345501874
+      blackKeyMaterial: !<reference.Material> 815c5d6b-9cce-4fae-adaf-dd9e4a6aa263
       parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       keyDownAudio: !<reference.AudioTrackAsset> 639ec359-5bbc-45cd-b7a4-51fe519d8b81
       labelFont: !<reference.Font> 00000000-0000-0000-0000-000000000000
@@ -1410,6 +1409,10 @@
       blackKeyHeight: 5.500000
       blackKeyDepth: 1.800000
       keysMovable: false
+      pressDepth: 0.600000
+      pressAnimFactor: 0.350000
+      maxHoldSec: !<float> 5.000000
+      heldNotesText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     "":
       {}
@@ -2660,7 +2663,7 @@
   Enabled: true
   Layers: 1
   LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Position: {x: 0.000000, y: -1.000000, z: -25.000000}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false

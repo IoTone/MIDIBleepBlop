@@ -1,32 +1,28 @@
-// PianoKeyboard — programmatically generates a playable piano with minimal
-// scene wiring. Mesh is built in code (MeshBuilder); per-key materials are
-// cloned + tinted from one optional base material; visual + audio feedback are
-// implemented directly off the Interactable's events. The ONLY required wiring
-// is `midi`.
-//
-// Why not InteractableOutlineFeedback / InteractableAudioFeedback?
-//   Those SIK components validate their required @inputs *synchronously inside*
-//   createComponent (a `checkUndefined` in their generated awake). There's no
-//   way to pass inputs to a runtime-created component, so they throw
-//   ("Input meshVisuals was not provided") before we can assign anything. We
-//   therefore implement equivalent feedback ourselves:
-//     - press/hover highlight → swap the key material's baseColor
-//     - key-down sound        → a plain AudioComponent
+// PianoKeyboard — programmatically generates a playable piano. Mesh is built in
+// code (MeshBuilder). Key colors come from two materials you color in the Lens
+// Studio material editor (whiteKeyMaterial / blackKeyMaterial) — no scripted
+// tinting, so it doesn't depend on a shader exposing baseColor.
 //
 // Each key SceneObject gets:
-//   - RenderMeshVisual      (procedural cube, per-key tinted material)
+//   - RenderMeshVisual      (procedural cube; white/black material assigned)
 //   - Physics.BodyComponent (static collider for SIK hit-testing)
-//   - Interactable          (press/release + hover events)
+//   - Interactable          (press / release / cancel events)
 //   - InteractableManipulation (ONLY if keysMovable = true)
 //   - a child SceneObject with a 2D Text label (e.g. "C3")
 //
-// Press  → onTriggerStart → MidiClient.sendNoteOn  (+ highlight + sound)
-// Release → onTriggerEnd  → MidiClient.sendNoteOff (+ restore)
+// Press  → onTriggerStart            → sendNoteOn  + key depresses
+// Release → onTriggerEnd / Canceled  → sendNoteOff + key springs back
+//
+// onTriggerCanceled is handled too: SIK fires it (not onTriggerEnd) when the
+// interactor leaves a key mid-press. Without it, keys stick down and notes hang.
+//
+// Every note on/off is print()'d so the Logger shows exactly what's sent.
 //
 // SCENE WIRING: see docs/tester-ux.md → "PianoKeyboard wiring".
 
 import { Interactable } from 'SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable';
 import { InteractableManipulation } from 'SpectaclesInteractionKit.lspkg/Components/Interaction/InteractableManipulation/InteractableManipulation';
+import { InteractorInputType } from 'SpectaclesInteractionKit.lspkg/Core/Interactor/Interactor';
 import { MidiClientComponent } from './MidiClientComponent';
 
 const WHITE_SEMITONES = [0, 2, 4, 5, 7, 9, 11]; // C D E F G A B
@@ -41,10 +37,6 @@ function noteName(note: number): string {
   const semitone = ((note % 12) + 12) % 12;
   const octave = Math.floor(note / 12) - 2;
   return NOTE_NAMES[semitone] + String(octave);
-}
-
-function lerp4(a: vec4, b: vec4, t: number): vec4 {
-  return new vec4(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, a.z + (b.z - a.z) * t, a.w + (b.w - a.w) * t);
 }
 
 function buildUnitCube(): RenderMesh {
@@ -87,7 +79,7 @@ function buildUnitCube(): RenderMesh {
 @component
 export class PianoKeyboard extends BaseScriptComponent {
   @input
-  @hint('The MidiClientComponent providing the bridge connection. (Only required input.)')
+  @hint('The MidiClientComponent providing the bridge connection.')
   midi!: MidiClientComponent;
 
   @input
@@ -95,24 +87,17 @@ export class PianoKeyboard extends BaseScriptComponent {
   channel: number = 0;
 
   @input
-  @hint('Optional. A material cloned + tinted per key. If empty, keys use the default material (color feedback may not apply). Recommended: wire any Unlit or PBR material.')
+  @hint('Material for white keys — color it in the LS material editor. Recommended: Unlit.')
   @allowUndefined
-  keyMaterial: Material | undefined;
-
-  @input('vec4', '{0.95, 0.95, 0.95, 1.0}')
-  @hint('White-key color')
-  whiteColor: vec4 = new vec4(0.95, 0.95, 0.95, 1.0);
-
-  @input('vec4', '{0.08, 0.08, 0.08, 1.0}')
-  @hint('Black-key color')
-  blackColor: vec4 = new vec4(0.08, 0.08, 0.08, 1.0);
-
-  @input('vec4', '{0.25, 0.6, 1.0, 1.0}')
-  @hint('Color a key flashes to while pressed')
-  pressColor: vec4 = new vec4(0.25, 0.6, 1.0, 1.0);
+  whiteKeyMaterial: Material | undefined;
 
   @input
-  @hint("Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). Grab it to move the whole keyboard. If empty, keys parent under this object.")
+  @hint('Material for black keys — color it (black/metallic) in the LS material editor. Recommended: Unlit.')
+  @allowUndefined
+  blackKeyMaterial: Material | undefined;
+
+  @input
+  @hint("Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). If empty, keys parent under this object.")
   @allowUndefined
   parentObject: SceneObject | undefined;
 
@@ -127,7 +112,7 @@ export class PianoKeyboard extends BaseScriptComponent {
   labelFont: Font | undefined;
 
   @input
-  @hint('Lowest MIDI note (60 = C3)')
+  @hint('Lowest MIDI note (60 = C3; for a bass synth try 36 = C1)')
   startNote: number = 60;
 
   @input
@@ -149,13 +134,40 @@ export class PianoKeyboard extends BaseScriptComponent {
   @hint('If true, adds InteractableManipulation so keys can be grabbed/moved. Default false so pressing plays cleanly.')
   keysMovable: boolean = false;
 
+  @input
+  @hint('How far a key recedes (cm, into the keyboard) while held — the visible "depress".')
+  pressDepth: number = 0.6;
+
+  @input
+  @hint('Depress animation speed, 0..1 per frame (higher = snappier).')
+  pressAnimFactor: number = 0.35;
+
+  @input
+  @hint('Stuck-note safety net: a held note auto-releases after this many seconds if SIK never delivers a release event. 0 disables. Raise it if you want longer intentional holds.')
+  maxHoldSec: number = 5;
+
+  @input
+  @hint('Optional Text that shows currently-held note names (e.g. "C3 E3 G3"). Updates as you play.')
+  @allowUndefined
+  heldNotesText: Text | undefined;
+
   private keys: SceneObject[] = [];
   private cubeMesh: RenderMesh | null = null;
   private sharedAudio: AudioComponent | null = null;
+  private held: number[] = [];
+  private animKeys: Array<{
+    tf: Transform;
+    x: number;
+    y: number;
+    restZ: number;
+    pressed: boolean;
+    interactable: Interactable;
+    release: () => void;
+  }> = [];
 
   onAwake(): void {
     print(
-      '[PianoKeyboard] onAwake — midi wired=' +
+      '[PianoKeyboard] onAwake — midi=' +
         String(!!this.midi) +
         ' client=' +
         String(!!(this.midi && this.midi.client)),
@@ -165,6 +177,16 @@ export class PianoKeyboard extends BaseScriptComponent {
 
   private generate(): void {
     this.cubeMesh = buildUnitCube();
+
+    print(
+      '[PianoKeyboard] materials: white=' +
+        String(!!this.whiteKeyMaterial) +
+        ' black=' +
+        String(!!this.blackKeyMaterial) +
+        (this.whiteKeyMaterial && this.blackKeyMaterial ? '' : ' — wire both for colored keys'),
+    );
+
+    if (this.heldNotesText) this.heldNotesText.text = '(no notes)';
 
     if (this.keyDownAudio) {
       this.sharedAudio = this.getSceneObject().createComponent('Component.AudioComponent') as AudioComponent;
@@ -194,6 +216,25 @@ export class PianoKeyboard extends BaseScriptComponent {
       this.keys.push(this.makeKey(parent, note, white, x));
     }
     print('[PianoKeyboard] generated ' + String(this.keys.length) + ' keys');
+
+    this.createEvent('UpdateEvent').bind(() => this.animate());
+  }
+
+  private animate(): void {
+    const k = this.pressAnimFactor;
+    for (let i = 0; i < this.animKeys.length; i++) {
+      const a = this.animKeys[i];
+      // Stuck-note reconcile: if we think the key is pressed but SIK reports no
+      // triggering interactor, the release event was lost — force the release.
+      // Safe: during a valid press triggeringInteractor is never None.
+      if (a.pressed && a.interactable.triggeringInteractor === InteractorInputType.None) {
+        a.release();
+      }
+      const targetZ = a.restZ - (a.pressed ? this.pressDepth : 0);
+      const cur = a.tf.getLocalPosition();
+      const newZ = cur.z + (targetZ - cur.z) * k;
+      a.tf.setLocalPosition(new vec3(a.x, a.y, newZ));
+    }
   }
 
   private makeKey(parent: SceneObject, note: number, white: boolean, x: number): SceneObject {
@@ -212,19 +253,8 @@ export class PianoKeyboard extends BaseScriptComponent {
 
     const rmv = obj.createComponent('Component.RenderMeshVisual') as RenderMeshVisual;
     rmv.mesh = this.cubeMesh!;
-
-    // Per-key material clone so each key can highlight independently.
-    const restColor = white ? this.whiteColor : this.blackColor;
-    const hoverColor = lerp4(restColor, this.pressColor, 0.4);
-    let keyMat: Material | null = null;
-    if (this.keyMaterial) {
-      keyMat = this.keyMaterial.clone();
-      this.setColor(keyMat, restColor);
-      rmv.mainMaterial = keyMat;
-    }
-    const applyColor = (c: vec4): void => {
-      if (keyMat) this.setColor(keyMat, c);
-    };
+    const src = white ? this.whiteKeyMaterial : this.blackKeyMaterial;
+    if (src) rmv.mainMaterial = src;
 
     const body = obj.createComponent('Physics.BodyComponent') as BodyComponent;
     body.dynamic = false;
@@ -247,41 +277,73 @@ export class PianoKeyboard extends BaseScriptComponent {
     text.size = 24;
     text.textFill.color = white ? new vec4(0.1, 0.1, 0.1, 1) : new vec4(0.95, 0.95, 0.95, 1);
 
-    // Feedback + MIDI off the Interactable events.
-    let pressed = false;
-    interactable.onInteractorHoverEnter.add(() => {
-      if (!pressed) applyColor(hoverColor);
+    const anim = { tf, x, y, restZ: z, pressed: false, interactable, release: (): void => {} };
+
+    // One reusable backstop timer per key — reset on press, cancelled on release.
+    const holdTimer = this.createEvent('DelayedCallbackEvent');
+    holdTimer.bind(() => {
+      if (!anim.pressed) return;
+      print('[PianoKeyboard] auto-release (max hold) ' + noteName(note));
+      release();
     });
-    interactable.onInteractorHoverExit.add(() => {
-      if (!pressed) applyColor(restColor);
-    });
-    interactable.onTriggerStart.add(() => {
-      pressed = true;
-      applyColor(this.pressColor);
+
+    const press = (): void => {
+      if (anim.pressed) return; // guard double-trigger
+      anim.pressed = true;
       if (this.sharedAudio) this.sharedAudio.play(1);
       const client = this.midi ? this.midi.client : null;
-      print(
-        '[PianoKeyboard] press note=' +
-          String(note) +
-          ' client=' +
-          String(!!client) +
-          ' state=' +
-          (client ? client.state : 'none'),
-      );
       if (client) client.sendNoteOn(this.channel, note, this.velocity);
-    });
-    interactable.onTriggerEnd.add(() => {
-      pressed = false;
-      applyColor(restColor);
+      print(
+        '[PianoKeyboard] noteOn  ' +
+          noteName(note) +
+          ' (' +
+          String(note) +
+          ') ch' +
+          String(this.channel) +
+          ' vel' +
+          String(this.velocity),
+      );
+      this.addHeld(note);
+      if (this.maxHoldSec > 0) holdTimer.reset(this.maxHoldSec);
+    };
+
+    const release = (): void => {
+      if (!anim.pressed) return; // idempotent: end + cancel + reconcile + timeout may all race
+      anim.pressed = false;
+      holdTimer.cancel();
       const client = this.midi ? this.midi.client : null;
       if (client) client.sendNoteOff(this.channel, note);
-    });
+      print('[PianoKeyboard] noteOff ' + noteName(note) + ' (' + String(note) + ')');
+      this.removeHeld(note);
+    };
+    anim.release = release;
+    this.animKeys.push(anim);
+
+    interactable.onTriggerStart.add(press);
+    interactable.onTriggerEnd.add(release);
+    interactable.onTriggerCanceled.add(release);
 
     return obj;
   }
 
-  private setColor(mat: Material, color: vec4): void {
-    const pass = mat.mainPass as unknown as { baseColor?: vec4 };
-    if (pass && pass.baseColor !== undefined) pass.baseColor = color;
+  private addHeld(note: number): void {
+    if (this.held.indexOf(note) < 0) this.held.push(note);
+    this.refreshNotesDisplay();
+  }
+
+  private removeHeld(note: number): void {
+    const i = this.held.indexOf(note);
+    if (i >= 0) this.held.splice(i, 1);
+    this.refreshNotesDisplay();
+  }
+
+  private refreshNotesDisplay(): void {
+    if (!this.heldNotesText) return;
+    if (this.held.length === 0) {
+      this.heldNotesText.text = '(no notes)';
+      return;
+    }
+    const sorted = this.held.slice().sort((a, b) => a - b);
+    this.heldNotesText.text = sorted.map((n) => noteName(n)).join('  ');
   }
 }
