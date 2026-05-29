@@ -2,6 +2,7 @@
   "name": "@midi-bleep-bop/examples",
   "version": "0.1.0",
   "description": "Reference node CLIs that exercise midi-bleep-bop end-to-end",
+  "license": "MIT",
   "type": "module",
   "private": true,
   "scripts": {

@@ -2,6 +2,7 @@
   "name": "@midi-bleep-bop/transport-spectacles-ws",
   "version": "0.1.0",
   "description": "Lens Studio (Snap Spectacles) WebSocket transport for midi-bleep-bop",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

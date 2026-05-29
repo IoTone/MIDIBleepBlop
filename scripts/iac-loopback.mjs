@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
 // IAC closed-loop end-to-end test.
 //
 // Opens macOS's IAC Driver as both input and output on the bridge, connects a

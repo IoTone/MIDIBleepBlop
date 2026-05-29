@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // MidiClientComponent — Lens Studio @component wrapper around MidiClient +
 // SpectaclesWebSocketTransport. Drop this onto a SceneObject (or use the
 // MidiClient prefab) and read `.client` from your own scripts.

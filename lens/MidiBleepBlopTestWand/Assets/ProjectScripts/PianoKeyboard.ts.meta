@@ -26,10 +26,19 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    audioVolume: false
     blackKeyDepth: false
     blackKeyHeight: false
     blackKeyMaterial: false
     blackKeyWidth: false
+    cc1Controller: false
+    cc1Value: false
+    cc2Controller: false
+    cc2Value: false
+    cc3Controller: false
+    cc3Value: false
+    cc4Controller: false
+    cc4Value: false
     channel: false
     heldNotesText: false
     keyCount: false
@@ -38,6 +47,8 @@
     labelFont: false
     maxHoldSec: false
     midi: false
+    octaveShift: false
+    octaveText: false
     parentObject: false
     pressAnimFactor: false
     pressDepth: false
@@ -62,9 +73,19 @@
       blackKeyMaterial: !<reference.Material> 00000000-0000-0000-0000-000000000000
       parentObject: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       keyDownAudio: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      audioVolume: 0.500000
       labelFont: !<reference.Font> 00000000-0000-0000-0000-000000000000
       startNote: !<float> 60.000000
+      octaveShift: !<float> 0.000000
       keyCount: !<float> 13.000000
+      cc1Controller: !<float> -1.000000
+      cc1Value: !<float> 0.000000
+      cc2Controller: !<float> -1.000000
+      cc2Value: !<float> 0.000000
+      cc3Controller: !<float> -1.000000
+      cc3Value: !<float> 0.000000
+      cc4Controller: !<float> -1.000000
+      cc4Value: !<float> 0.000000
       velocity: !<float> 100.000000
       whiteKeyWidth: 2.200000
       whiteKeyHeight: !<float> 9.000000
@@ -77,6 +98,7 @@
       pressAnimFactor: 0.350000
       maxHoldSec: !<float> 5.000000
       heldNotesText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      octaveText: !<reference.Text> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -87,9 +109,19 @@
     - '// @input Asset.Material blackKeyMaterial {"hint":"Material for black keys — color it (black/metallic) in the LS material editor. Recommended: Unlit."}'
     - "// @input SceneObject parentObject {\"hint\":\"Optional. SceneObject to parent keys under (e.g. a ContainerFrame's object). If empty, keys parent under this object.\"}"
     - '// @input Asset.AudioTrackAsset keyDownAudio {"hint":"Optional sound played when a key is pressed"}'
+    - '// @input float audioVolume = 0.5 {"hint":"Key-press sound volume, 0..1. Default 0.5 (half = softer)."}'
     - '// @input Asset.Font labelFont {"hint":"Optional font for the key labels"}'
-    - '// @input float startNote = 60 {"hint":"Lowest MIDI note (60 = C3; for a bass synth try 36 = C1)"}'
+    - '// @input float startNote = 60 {"hint":"Lowest MIDI note (60 = C3; for a bass synth try 36 = C1). Applied at generation — re-stage to change."}'
+    - '// @input float octaveShift {"hint":"Shift all keys by whole octaves. +1 = up an octave, -1 = down. Applied at generation — re-stage to change."}'
     - '// @input float keyCount = 13 {"hint":"Number of keys to generate (white + black)"}'
+    - '// @input float cc1Controller = -1 {"hint":"CC #1 controller number (0-127). -1 = unused."}'
+    - '// @input float cc1Value {"hint":"CC #1 value (0-127)"}'
+    - '// @input float cc2Controller = -1 {"hint":"CC #2 controller number (0-127). -1 = unused."}'
+    - '// @input float cc2Value {"hint":"CC #2 value (0-127)"}'
+    - '// @input float cc3Controller = -1 {"hint":"CC #3 controller number (0-127). -1 = unused."}'
+    - '// @input float cc3Value {"hint":"CC #3 value (0-127)"}'
+    - '// @input float cc4Controller = -1 {"hint":"CC #4 controller number (0-127). -1 = unused."}'
+    - '// @input float cc4Value {"hint":"CC #4 value (0-127)"}'
     - '// @input float velocity = 100 {"hint":"Velocity sent on key press (1-127)"}'
     - // @input float whiteKeyWidth = 2.2
     - // @input float whiteKeyHeight = 9
@@ -102,3 +134,4 @@
     - '// @input float pressAnimFactor = 0.35 {"hint":"Depress animation speed, 0..1 per frame (higher = snappier)."}'
     - '// @input float maxHoldSec = 5 {"hint":"Stuck-note safety net: a held note auto-releases after this many seconds if SIK never delivers a release event. 0 disables. Raise it if you want longer intentional holds."}'
     - '// @input Component.Text heldNotesText {"hint":"Optional Text that shows currently-held note names (e.g. \"C3 E3 G3\"). Updates as you play."}'
+    - "// @input Component.Text octaveText {\"hint\":\"Optional Text that shows the keyboard's octave + range (e.g. \\\"Octave 3  (C3–C4)\\\"). Set at generation.\"}"

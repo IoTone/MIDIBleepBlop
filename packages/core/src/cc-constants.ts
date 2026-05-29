@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // Named constants for the most common MIDI Control Change numbers.
 // See General MIDI / MIDI 1.0 spec for the full list (0-127); this object
 // covers the controllers that turn up in typical hardware + DAW workflows.

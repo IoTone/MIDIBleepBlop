@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 export type NoteOn = { type: 'noteOn'; channel: number; note: number; velocity: number };
 export type NoteOff = { type: 'noteOff'; channel: number; note: number; velocity: number };
 export type CCMessage = { type: 'cc'; channel: number; controller: number; value: number };

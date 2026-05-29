@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 import type { Device, Parameter } from './types.js';
 
 function normaliseName(name: string): string {

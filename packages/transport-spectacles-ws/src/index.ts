@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 import type { ConnectionState, Transport } from '@midi-bleep-bop/core';
 
 // Lens Studio's WebSocket type is intentionally not pulled in here — the file is

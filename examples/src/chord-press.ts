@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // Send a C major triad on channel 1 once per second to a running bridge.
 // Useful as a "does the bridge actually drive my synth?" smoke test.
 //

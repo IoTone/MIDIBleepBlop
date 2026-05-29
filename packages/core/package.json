@@ -2,6 +2,7 @@
   "name": "@midi-bleep-bop/core",
   "version": "0.1.0",
   "description": "Pure-TS core for midi-bleep-bop: MIDI message types, state tracking, MidiClient",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

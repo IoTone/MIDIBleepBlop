@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // PianoKeyboard — programmatically generates a playable piano. Mesh is built in
 // code (MeshBuilder). Key colors come from two materials you color in the Lens
 // Studio material editor (whiteKeyMaterial / blackKeyMaterial) — no scripted
@@ -107,17 +108,37 @@ export class PianoKeyboard extends BaseScriptComponent {
   keyDownAudio: AudioTrackAsset | undefined;
 
   @input
+  @hint('Key-press sound volume, 0..1. Default 0.5 (half = softer).')
+  audioVolume: number = 0.5;
+
+  @input
   @hint('Optional font for the key labels')
   @allowUndefined
   labelFont: Font | undefined;
 
   @input
-  @hint('Lowest MIDI note (60 = C3; for a bass synth try 36 = C1)')
+  @hint('Lowest MIDI note (60 = C3; for a bass synth try 36 = C1). Applied at generation — re-stage to change.')
   startNote: number = 60;
+
+  @input
+  @hint('Shift all keys by whole octaves. +1 = up an octave, -1 = down. Applied at generation — re-stage to change.')
+  octaveShift: number = 0;
 
   @input
   @hint('Number of keys to generate (white + black)')
   keyCount: number = 13;
+
+  // ── Optional CC setup slots ── sent once the bridge connection opens (and on
+  // reconnect). Leave controller at -1 to skip a slot. Useful for initializing
+  // the synth (cutoff, resonance, etc.) when the keyboard loads.
+  @input @hint('CC #1 controller number (0-127). -1 = unused.') cc1Controller: number = -1;
+  @input @hint('CC #1 value (0-127)') cc1Value: number = 0;
+  @input @hint('CC #2 controller number (0-127). -1 = unused.') cc2Controller: number = -1;
+  @input @hint('CC #2 value (0-127)') cc2Value: number = 0;
+  @input @hint('CC #3 controller number (0-127). -1 = unused.') cc3Controller: number = -1;
+  @input @hint('CC #3 value (0-127)') cc3Value: number = 0;
+  @input @hint('CC #4 controller number (0-127). -1 = unused.') cc4Controller: number = -1;
+  @input @hint('CC #4 value (0-127)') cc4Value: number = 0;
 
   @input
   @hint('Velocity sent on key press (1-127)')
@@ -151,10 +172,16 @@ export class PianoKeyboard extends BaseScriptComponent {
   @allowUndefined
   heldNotesText: Text | undefined;
 
+  @input
+  @hint('Optional Text that shows the keyboard\'s octave + range (e.g. "Octave 3  (C3–C4)"). Set at generation.')
+  @allowUndefined
+  octaveText: Text | undefined;
+
   private keys: SceneObject[] = [];
   private cubeMesh: RenderMesh | null = null;
   private sharedAudio: AudioComponent | null = null;
   private held: number[] = [];
+  private setupSent = false;
   private animKeys: Array<{
     tf: Transform;
     x: number;
@@ -191,20 +218,30 @@ export class PianoKeyboard extends BaseScriptComponent {
     if (this.keyDownAudio) {
       this.sharedAudio = this.getSceneObject().createComponent('Component.AudioComponent') as AudioComponent;
       this.sharedAudio.audioTrack = this.keyDownAudio;
+      this.sharedAudio.volume = this.audioVolume;
     }
 
     const parent = this.parentObject ? this.parentObject : this.getSceneObject();
 
+    const base = this.startNote + 12 * this.octaveShift;
+
+    if (this.octaveText) {
+      const baseOctave = Math.floor(base / 12) - 2; // Ableton: C3 = MIDI 60
+      const topNote = base + this.keyCount - 1;
+      this.octaveText.text =
+        'Octave ' + String(baseOctave) + '  (' + noteName(base) + '–' + noteName(topNote) + ')';
+    }
+
     let whiteCount = 0;
     for (let i = 0; i < this.keyCount; i++) {
-      if (isWhite(this.startNote + i)) whiteCount++;
+      if (isWhite(base + i)) whiteCount++;
     }
     const totalWidth = whiteCount * this.whiteKeyWidth;
     const xOffset = -totalWidth / 2 + this.whiteKeyWidth / 2;
 
     let whiteIndex = 0;
     for (let i = 0; i < this.keyCount; i++) {
-      const note = this.startNote + i;
+      const note = base + i;
       const white = isWhite(note);
       let x: number;
       if (white) {
@@ -221,6 +258,17 @@ export class PianoKeyboard extends BaseScriptComponent {
   }
 
   private animate(): void {
+    // Send the optional setup CCs once the connection is open; resend on reconnect.
+    const client = this.midi ? this.midi.client : null;
+    if (client && client.connected) {
+      if (!this.setupSent) {
+        this.sendSetupCCs(client);
+        this.setupSent = true;
+      }
+    } else {
+      this.setupSent = false;
+    }
+
     const k = this.pressAnimFactor;
     for (let i = 0; i < this.animKeys.length; i++) {
       const a = this.animKeys[i];
@@ -335,6 +383,23 @@ export class PianoKeyboard extends BaseScriptComponent {
     const i = this.held.indexOf(note);
     if (i >= 0) this.held.splice(i, 1);
     this.refreshNotesDisplay();
+  }
+
+  private sendSetupCCs(client: { sendCC: (ch: number, cc: number, v: number) => void }): void {
+    const slots: Array<[number, number]> = [
+      [this.cc1Controller, this.cc1Value],
+      [this.cc2Controller, this.cc2Value],
+      [this.cc3Controller, this.cc3Value],
+      [this.cc4Controller, this.cc4Value],
+    ];
+    for (let i = 0; i < slots.length; i++) {
+      const ctrl = slots[i][0];
+      const val = slots[i][1];
+      if (ctrl >= 0 && ctrl <= 127) {
+        client.sendCC(this.channel, ctrl, val);
+        print('[PianoKeyboard] setup CC ' + String(ctrl) + '=' + String(val) + ' ch' + String(this.channel));
+      }
+    }
   }
 
   private refreshNotesDisplay(): void {

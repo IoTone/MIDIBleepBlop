@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // DiagnosticPanel — Tester Lens diagnostic readout.
 //
 // Wires a MidiClientComponent (from the MidiBleepBop library) to a set of

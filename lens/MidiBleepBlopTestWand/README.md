@@ -21,4 +21,4 @@ You can add to this.  It needs, a connect button.  For now, it is set up to allo
 
 - A piano think sound: https://freesound.org/people/eyenorth/sounds/402839/
 - A short click: https://freesound.org/people/ironcross32/sounds/582903/
-
+- Data for CC values: https://github.com/pencilresearch/midi

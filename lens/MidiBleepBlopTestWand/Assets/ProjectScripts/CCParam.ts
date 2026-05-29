@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // CCParam — a typed handle to one MIDI CC on one channel.
 //
 // Listens to a specific (channel, controller) on a MidiClientComponent, applies

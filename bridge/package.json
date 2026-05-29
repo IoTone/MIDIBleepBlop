@@ -2,6 +2,7 @@
   "name": "@midi-bleep-bop/bridge",
   "version": "0.1.0",
   "description": "Node WebSocket ↔ OS MIDI bridge for midi-bleep-bop",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/server.js",
   "types": "./dist/server.d.ts",

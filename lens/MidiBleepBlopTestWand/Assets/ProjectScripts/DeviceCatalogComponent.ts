@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // DeviceCatalogComponent — wraps a Device entry from the generated DEVICES map
 // (Devices.ts) and exposes it as a DeviceCatalog usable by other components.
 //

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
 // Convert vendored pencilresearch/midi CSVs into per-device JSON files.
 //
 // Walks vendor/pencilresearch-midi/<Manufacturer>/<device>.csv, parses each

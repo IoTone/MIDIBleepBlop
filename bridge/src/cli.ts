@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
 import { Command } from 'commander';
 import { JzzMidiIO } from './midi.js';
-import { BridgeServer } from './server.js';
+import { BridgeServer, type ChannelRoute } from './server.js';
 
 const program = new Command();
 program
@@ -10,7 +11,11 @@ program
   .option('-p, --port <n>', 'WebSocket port', '8765')
   .option('-d, --device <pattern>', 'MIDI device name substring (used for both input and output)')
   .option('-i, --input <pattern>', 'MIDI input device name substring (overrides --device)')
-  .option('-o, --output <pattern>', 'MIDI output device name substring (overrides --device)')
+  .option('-o, --output <pattern>', 'MIDI output device name substring (default output; overrides --device)')
+  .option(
+    '-r, --route <map...>',
+    'Route a channel to a specific output: "CH=pattern" (e.g. "0=USB MIDI Interface"). Repeatable.',
+  )
   .option('-l, --log <level>', 'log level: off | error | info | debug', 'info')
   .option('--list', 'list available MIDI devices and exit')
   .parse();
@@ -20,6 +25,7 @@ const opts = program.opts<{
   device?: string;
   input?: string;
   output?: string;
+  route?: string[];
   log: string;
   list?: boolean;
 }>();
@@ -58,10 +64,28 @@ if (!Number.isFinite(port) || port < 1 || port > 65535) {
   process.exit(2);
 }
 
+// Parse --route "CH=pattern" entries.
+const routes: ChannelRoute[] = [];
+for (const entry of opts.route ?? []) {
+  const eq = entry.indexOf('=');
+  if (eq < 1) {
+    process.stderr.write(`error: invalid --route "${entry}" (expected "CH=pattern")\n`);
+    process.exit(2);
+  }
+  const channel = Number.parseInt(entry.slice(0, eq), 10);
+  const pattern = entry.slice(eq + 1).trim();
+  if (!Number.isInteger(channel) || channel < 0 || channel > 15 || pattern.length === 0) {
+    process.stderr.write(`error: invalid --route "${entry}" (channel 0-15, non-empty pattern)\n`);
+    process.exit(2);
+  }
+  routes.push({ channel, pattern });
+}
+
 const server = new BridgeServer({
   port,
   inputPattern,
   outputPattern,
+  routes,
   midi,
   onLog: log,
 });
@@ -69,8 +93,11 @@ const server = new BridgeServer({
 try {
   const info = await server.start();
   log('info', `bridge listening on ws://0.0.0.0:${info.port}`);
-  log('info', `MIDI input:  ${info.inputName}`);
-  log('info', `MIDI output: ${info.outputName}`);
+  log('info', `MIDI input:   ${info.inputName}`);
+  log('info', `MIDI output:  ${info.outputName} (default)`);
+  for (const r of info.routedOutputs) {
+    log('info', `  channel ${r.channel} → ${r.outputName}`);
+  }
 } catch (e) {
   const msg = e instanceof Error ? e.message : String(e);
   process.stderr.write(`error: ${msg}\n`);

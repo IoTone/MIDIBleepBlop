@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+// SPDX-License-Identifier: MIT
 // Self-contained smoke test that exercises the bridge end-to-end under whichever
 // runtime executes it. Verifies:
 //   1. BridgeServer starts (Express + http + ws wire-up)

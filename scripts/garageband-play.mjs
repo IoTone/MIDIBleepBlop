@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// SPDX-License-Identifier: MIT
 // GarageBand audio verification — drives a chord progression through the bridge
 // into GarageBand via IAC, so you can hear the full stack work end-to-end.
 //

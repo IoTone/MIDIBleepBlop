@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // NoteCubeFlash — scales a target SceneObject up while any note on the
 // monitored channel is being held. The simplest "is MIDI actually arriving in
 // 3D space" visual: see a cube grow when you play, shrink when you release.

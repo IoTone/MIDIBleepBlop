@@ -2,6 +2,7 @@
   "name": "@midi-bleep-bop/transport-node",
   "version": "0.1.0",
   "description": "Node.js WebSocket transport for midi-bleep-bop (tests, bridge clients, CLIs)",
+  "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

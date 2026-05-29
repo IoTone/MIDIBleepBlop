@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // KeyboardChannelMode — turn the lens's virtual keyboard into a monophonic
 // MIDI controller using Ableton's standard computer-keyboard mapping.
 //

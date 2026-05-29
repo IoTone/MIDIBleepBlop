@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // Thin abstraction over JZZ so the bridge can be tested without real MIDI hardware.
 
 export interface MidiInput {

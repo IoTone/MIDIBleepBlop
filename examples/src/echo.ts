@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // Connect to a running bridge and print every incoming MIDI message.
 // Useful as a "is this bridge actually receiving from my MIDI gear?" smoke test.
 //

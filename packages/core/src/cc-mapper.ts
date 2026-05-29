@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 // CCMapper — pure-TS scaling + smoothing primitive for a single CC stream.
 //
 // Owned by `CCParam` (the Lens Studio @component) but implemented here so the

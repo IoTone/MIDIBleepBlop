@@ -185,9 +185,10 @@ JZZ uses RtMidi's WinMM backend; the BLE device is indistinguishable from a USB 
 ```
 @midi-bleep-bop/bridge [options]
   --port <n>             WebSocket + HTTP port (default 8765)
-  --input <pattern>      MIDI input device name substring (default: prompt)
-  --output <pattern>     MIDI output device name substring (default: same as --input)
+  --input <pattern>      MIDI input device name substring
+  --output <pattern>     Default MIDI output device name substring
   --device <pattern>     Shorthand for --input=X --output=X
+  --route "CH=pattern"   Route one channel to a specific output (repeatable)
   --list                 List available MIDI devices and exit
   --log <level>          off | error | info | debug (default info)
   --tls-cert <path>      Optional cert for serving wss://
@@ -195,6 +196,25 @@ JZZ uses RtMidi's WinMM backend; the BLE device is indistinguishable from a USB 
 ```
 
 `--list` is the first step when troubleshooting — it shows exactly what JZZ sees on the host OS. If your BLE-MIDI device doesn't appear here, the OS-level pairing isn't done; revisit the per-OS section above.
+
+### Per-channel output routing
+
+By default every MIDI channel goes to the single `--output`/`--device` port. `--route` overrides individual channels, so one bridge can fan different channels to different instruments — e.g. an acid bassline on a hardware synth and house chords on a software synth, simultaneously:
+
+```
+node bridge/dist/cli.js \
+  --device "IAC Driver Bus 1" \          # default output (unmapped channels + system messages)
+  --route "0=USB MIDI Interface" \       # channel 0 → Volca Bass (hardware)
+  --route "1=IAC Driver Bus 1"           # channel 1 → soft synth on IAC
+```
+
+Mechanics:
+- Routing is **output-only** — the input side (MIDI in → WS clients) is unchanged, single-input.
+- The bridge inspects each frame's status byte: channel voice messages (`0x80`–`0xEF`) route by `status & 0x0F`; channel-less system messages (`0xF0`+, e.g. MIDI clock) go to the **default** output.
+- Outputs are opened once and deduped by pattern, so multiple channels can target the same port cheaply.
+- `GET /status` reports the active routes: `{ output, routes: [{ channel, output }] }`.
+
+This is the single-bridge way to drive a multitimbral setup without a second bridge process. (GarageBand can't split channels to tracks itself; Logic / MainStage / AU Lab can — in which case you don't need `--route` at all: send everything to one port and let the host split by channel.)
 
 A `bridge.config.json` discovered in the working directory provides the same options for non-CLI invocations.
 
@@ -230,6 +250,33 @@ The wire protocol is host-agnostic. A lens developed against a macOS bridge will
 
 This means a publish-ready lens can document "point this at any bridge — Mac, Linux, or Windows" without per-OS lens branching.
 
+## Platform support & known issues
+
+### macOS — primary platform
+
+The bridge is developed and tested on macOS, and it's the smoothest experience:
+
+- **CoreMIDI handles BLE-MIDI natively** — pair the device once in Audio MIDI Setup (see the macOS section above) and it appears as a MIDI port.
+- **IAC Driver** provides a virtual MIDI bus for loopback testing (`npm run test:iac`) and for routing into Logic / MainStage / AU Lab / GarageBand without hardware.
+- `jazz-midi` ships prebuilt binaries for macOS; no build tools required.
+- Verified under both Node 20 and Bun 1.3.14.
+
+No known blockers on macOS.
+
+### Linux — works, with setup
+
+- **No built-in BLE-MIDI bridging.** You need PipeWire **0.3.65+** with WirePlumber (modern distros) or [BlueALSA](https://github.com/arkq/bluez-alsa) (older setups) to expose a BLE-MIDI device as an ALSA port. USB / DIN MIDI works without extra setup.
+- **BLE timing jitter** is real; PipeWire exposes a constant-latency knob (`api.bluez.midi.latency`) to trade latency for stability.
+- `jazz-midi` may need a compile if no prebuilt binary matches your Node/arch — install `build-essential` and ALSA dev headers (`libasound2-dev`).
+- Bun + `jazz-midi` on Linux is unverified by us; fall back to Node if the binding fails to load.
+
+### Windows — works, with a driver
+
+- **No native BLE-MIDI** in the in-box MIDI stack (the new Windows MIDI Services in 24H2+ is improving this but app/driver coverage is still in transition). Install the free [KORG BLE-MIDI Driver](https://www.korg.com/us/support/download/driver/1/305/2886/) to expose a BLE-MIDI device as a MIDI port. USB MIDI works without it.
+- **WIDI devices** need firmware ≥ v0.1.3.7 and the BLE role set to **Force Peripheral** (via the WIDI app) or Windows won't see them.
+- **`jazz-midi` build:** if `npm install` can't fetch a prebuilt binary, install the Visual Studio Build Tools "Desktop development with C++" workload.
+- Bun + `jazz-midi` on Windows is unverified by us; fall back to Node if needed.
+
 ## Troubleshooting (cross-OS)
 
 | Symptom | Likely cause | Check |
@@ -245,7 +292,7 @@ This means a publish-ready lens can document "point this at any bridge — Mac, 
 ## What the bridge does *not* do that you might expect
 
 - **It does not advertise itself.** No mDNS, no broadcast, no discovery. Lenses need the bridge's IP configured manually. This is partly because Spectacles doesn't expose mDNS resolution anyway.
-- **It does not multiplex MIDI devices.** One in, one out per bridge process. Run multiple bridges on different ports if you need that.
+- **It has one MIDI input, but can fan to multiple outputs.** A single input feeds all WS clients. Outputs can be split per channel with `--route` (see "Per-channel output routing"); the input side is not multiplexed.
 - **It does not authenticate clients.** Anyone on the LAN with the bridge URL can send MIDI. Bind to a non-public network or run behind a tunnel that does auth.
 - **It does not transcode timing.** No look-ahead scheduling, no jitter smoothing on the WS path (BLE jitter smoothing on Linux is delegated to PipeWire).
 

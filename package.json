@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "MIDI client library for Snap Spectacles 24, with a Node bridge",
+  "license": "MIT",
   "type": "module",
   "workspaces": [
     "packages/*",

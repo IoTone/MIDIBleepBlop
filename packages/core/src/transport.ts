@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 export type ConnectionState = 'connecting' | 'open' | 'closed';
 
 export interface Transport {

@@ -22,8 +22,8 @@ class MockInput implements MidiInput {
 }
 
 class MockOutput implements MidiOutput {
-  readonly name = 'mock-output';
   readonly sent: Uint8Array[] = [];
+  constructor(readonly name: string) {}
 
   send(bytes: Uint8Array): void {
     this.sent.push(bytes);
@@ -36,16 +36,33 @@ class MockOutput implements MidiOutput {
 
 class MockMidiIO implements MidiIO {
   readonly input = new MockInput();
-  readonly output = new MockOutput();
+  // One distinct output per pattern opened, so routing can be asserted.
+  readonly outputs = new Map<string, MockOutput>();
 
   async listDevices(): Promise<{ inputs: string[]; outputs: string[] }> {
-    return { inputs: [this.input.name], outputs: [this.output.name] };
+    return {
+      inputs: [this.input.name],
+      outputs: ['mock', 'USB MIDI Interface', 'IAC Driver Bus 1'],
+    };
   }
   async openInput(): Promise<MidiInput> {
     return this.input;
   }
-  async openOutput(): Promise<MidiOutput> {
-    return this.output;
+  async openOutput(pattern: string): Promise<MidiOutput> {
+    let out = this.outputs.get(pattern);
+    if (!out) {
+      out = new MockOutput(pattern);
+      this.outputs.set(pattern, out);
+    }
+    return out;
+  }
+
+  /** The default ('mock') output — convenience for tests that don't use routing. */
+  get output(): MockOutput {
+    return this.outputs.get('mock')!;
+  }
+  out(pattern: string): MockOutput {
+    return this.outputs.get(pattern)!;
   }
 }
 
@@ -133,7 +150,7 @@ describe('BridgeServer end-to-end with MockMidiIO', () => {
     };
     expect(body.ok).toBe(true);
     expect(body.input).toBe('mock-input');
-    expect(body.output).toBe('mock-output');
+    expect(body.output).toBe('mock');
     expect(typeof body.startedAt).toBe('string');
     expect(body.clients).toBe(0);
   });
@@ -147,5 +164,65 @@ describe('BridgeServer end-to-end with MockMidiIO', () => {
     const body = (await res.json()) as { clients: number };
     expect(body.clients).toBe(1);
     client.close();
+  });
+});
+
+describe('BridgeServer per-channel output routing', () => {
+  let server: BridgeServer;
+  let midi: MockMidiIO;
+  let port: number;
+
+  beforeEach(async () => {
+    midi = new MockMidiIO();
+    server = new BridgeServer({
+      port: 0,
+      inputPattern: 'mock',
+      outputPattern: 'IAC Driver Bus 1', // default output
+      routes: [{ channel: 0, pattern: 'USB MIDI Interface' }], // ch0 → Volca
+      midi,
+    });
+    const info = await server.start();
+    port = info.port;
+  });
+
+  afterEach(async () => {
+    await server.stop();
+  });
+
+  it('routes channel 0 to its mapped output and other channels to the default', async () => {
+    const client = new MidiClient(new NodeTransport({ url: `ws://127.0.0.1:${port}`, reconnect: false }));
+    await client.connect();
+
+    client.sendNoteOn(0, 60, 100); // ch0 → USB MIDI Interface
+    client.sendNoteOn(1, 64, 100); // ch1 → default (IAC)
+
+    await waitFor(
+      () => midi.out('USB MIDI Interface').sent.length > 0 && midi.out('IAC Driver Bus 1').sent.length > 0,
+    );
+
+    expect(midi.out('USB MIDI Interface').sent).toEqual([new Uint8Array([0x90, 60, 100])]);
+    expect(midi.out('IAC Driver Bus 1').sent).toEqual([new Uint8Array([0x91, 64, 100])]);
+    client.close();
+  });
+
+  it('sends channel-less system messages to the default output', async () => {
+    const client = new MidiClient(new NodeTransport({ url: `ws://127.0.0.1:${port}`, reconnect: false }));
+    await client.connect();
+
+    client.sendRaw(new Uint8Array([0xf8])); // MIDI clock — no channel → default
+    await waitFor(() => midi.out('IAC Driver Bus 1').sent.length > 0);
+    expect(midi.out('IAC Driver Bus 1').sent).toEqual([new Uint8Array([0xf8])]);
+    expect(midi.out('USB MIDI Interface').sent).toEqual([]);
+    client.close();
+  });
+
+  it('reports routes in GET /status', async () => {
+    const res = await fetch(`http://127.0.0.1:${port}/status`);
+    const body = (await res.json()) as {
+      output: string;
+      routes: Array<{ channel: number; output: string }>;
+    };
+    expect(body.output).toBe('IAC Driver Bus 1');
+    expect(body.routes).toEqual([{ channel: 0, output: 'USB MIDI Interface' }]);
   });
 });

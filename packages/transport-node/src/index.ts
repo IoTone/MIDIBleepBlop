@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 import type { ConnectionState, Transport } from '@midi-bleep-bop/core';
 import WebSocket from 'ws';
 

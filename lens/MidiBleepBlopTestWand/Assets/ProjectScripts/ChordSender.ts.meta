@@ -27,11 +27,12 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     autoPlay: false
+    bpm: false
     channel: false
-    holdSec: false
-    intervalSec: false
     midi: false
+    pattern: false
     rootNote: false
+    transpose: false
     velocity: false
   ScriptTypesHidden:
     {}
@@ -44,19 +45,21 @@
   DefaultScriptInputs:
     - midi: !<MappingBased.AssignableType> 00000000-0000-0000-0000-000000000000
       autoPlay: false
+      pattern: triad
       channel: !<float> 0.000000
-      rootNote: !<float> 60.000000
+      bpm: !<float> 124.000000
       velocity: !<float> 90.000000
-      intervalSec: 1.500000
-      holdSec: !<float> 1.000000
+      rootNote: !<float> 60.000000
+      transpose: !<float> 0.000000
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
-    - '// @input bool autoPlay {"hint":"If true, the chord loop starts automatically on awake. Default false — call play() to start."}'
+    - '// @input bool autoPlay {"hint":"If true, starts automatically on awake. Default false — call play() to start."}'
+    - '// @input string pattern = "triad" {"hint":"Groove to play: triad | acid | house"}'
     - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
-    - '// @input float rootNote = 60 {"hint":"Root note of the major triad. 60 = middle C. Try 48 (low C) or 72 (high C)."}'
+    - '// @input float bpm = 124 {"hint":"Tempo in BPM"}'
     - '// @input float velocity = 90 {"hint":"Note velocity, 1-127"}'
-    - '// @input float intervalSec = 1.5 {"hint":"Seconds between chord triggers"}'
-    - '// @input float holdSec = 1 {"hint":"How long each chord is held, in seconds (must be < intervalSec)"}'
+    - '// @input float rootNote = 60 {"hint":"Root note for the \"triad\" pattern. 60 = middle C."}'
+    - '// @input float transpose {"hint":"Semitones to transpose the \"acid\" / \"house\" patterns (0 = as written, A minor)."}'
