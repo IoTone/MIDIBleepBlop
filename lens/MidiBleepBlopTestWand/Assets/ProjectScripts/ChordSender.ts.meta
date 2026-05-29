@@ -57,7 +57,7 @@
   InputLines:
     - '// @input AssignableType midi {"hint":"The MidiClientComponent providing the bridge connection"}'
     - '// @input bool autoPlay {"hint":"If true, starts automatically on awake. Default false — call play() to start."}'
-    - '// @input string pattern = "triad" {"hint":"Groove to play: triad | acid | house"}'
+    - '// @input string pattern = "triad" {"hint":"Groove to play: triad | acid | house | trance"}'
     - '// @input float channel {"hint":"MIDI channel to send on (0-15)"}'
     - '// @input float bpm = 124 {"hint":"Tempo in BPM"}'
     - '// @input float velocity = 90 {"hint":"Note velocity, 1-127"}'
