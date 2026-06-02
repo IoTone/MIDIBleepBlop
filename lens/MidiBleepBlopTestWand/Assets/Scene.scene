@@ -4014,7 +4014,7 @@
     {}
   ScriptInputs:
     "":
-      bridgeUrl: "ws://10.0.0.107:8765"
+      bridgeUrl: "ws://127.0.0.1:8765"
       autoConnect: true
   ScriptTypes:
     "":

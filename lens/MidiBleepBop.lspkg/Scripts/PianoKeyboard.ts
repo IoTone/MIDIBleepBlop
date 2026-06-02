@@ -108,8 +108,8 @@ export class PianoKeyboard extends BaseScriptComponent {
   keyDownAudio: AudioTrackAsset | undefined;
 
   @input
-  @hint('Key-press sound volume, 0..1. Default 0.5 (half = softer).')
-  audioVolume: number = 0.5;
+  @hint('Key-press sound volume, 0..1. Default 0.18 (quiet — keeps the synth in front).')
+  audioVolume: number = 0.18;
 
   @input
   @hint('Optional font for the key labels')

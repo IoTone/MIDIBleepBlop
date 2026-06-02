@@ -54,6 +54,49 @@ node bridge/dist/cli.js \
 
 Now the acid bass (channel 0) goes to the Volca over the USB interface, and the house chords (channel 1, unmapped) go to IAC → your software synth. One bridge, one lens connection.
 
+## Ableton Live setup
+
+Ableton **never appears in the bridge's `--list`** — it's a MIDI consumer, not a MIDI port. You connect them with a **virtual MIDI bus**: the bridge sends to the bus, and Live listens on the bus. Run the bridge on the **same machine as Live** (the MIDI side is local; the Spectacles still reach it over the LAN).
+
+### 1. Create a virtual MIDI bus
+
+- **macOS:** open **Audio MIDI Setup** → Window → **MIDI Studio** → double-click **IAC Driver** → check **"Device is online."** (Bus 1 exists by default.)
+- **Windows:** install **loopMIDI** (Tobias Erichsen, free) from <https://www.tobias-erichsen.de/software/loopmidi.html> and create a port, e.g. "loopMIDI Port". There's no IAC on Windows.
+
+### 2. Point the bridge at the bus
+
+```
+node bridge/dist/cli.js --device "IAC Driver Bus 1"     # macOS
+node bridge/dist/cli.js --device "loopMIDI Port"        # Windows
+```
+
+Confirm the exact name with `node bridge/dist/cli.js --list`. If the bus doesn't appear, the virtual driver isn't online — re-check step 1.
+
+### 3. Enable the input in Live
+
+In **Preferences → Link/Tempo/MIDI** (Live 10) → **MIDI Ports**, find the **Input** row for your bus (IAC Driver (Bus 1) / loopMIDI Port) and turn **Track = On**. Enable **Remote** too if you want to map knobs to controls.
+
+### 4. One track per channel (this is how Live splits the grooves)
+
+Live 10 routes one input *port* to a track, but each track can filter to a single **MIDI channel** — so several tracks all listening to the same bus, filtered to different channels, give you true multitimbral playback that GarageBand can't. Remember the bridge's channel is 0-indexed: **channel 0 = MIDI ch 1**.
+
+| Track | MIDI From | Channel | Monitor | Plays |
+|---|---|---|---|---|
+| Bass | IAC Driver (Bus 1) | Ch. 1 | In | acid / trance (bridge ch 0) |
+| Chords | IAC Driver (Bus 1) | Ch. 2 | In | house (bridge ch 1) |
+
+For each track: set **MIDI From** to the bus, pick the **channel** in the second dropdown, set **Monitor: In**, and **arm** the track (record-enable). Drop an instrument on each.
+
+### 5. Sanity check
+
+With the bridge running and pointed at the bus, fire test notes:
+
+```bash
+node examples/dist/chord-press.js ws://127.0.0.1:8765
+```
+
+An armed track shows incoming MIDI in its meter and plays its instrument. From the lens, two `ChordSender`s on channels 0 and 1 land on the Bass and Chords tracks respectively — the same single-bridge, single-connection setup as Option A, with Live doing the channel split.
+
 ## Suggested channel plan
 
 A clean convention that maps onto a Logic/MainStage multi-instrument set or the bridge's `--route`:
