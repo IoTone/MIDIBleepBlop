@@ -97,6 +97,41 @@ node examples/dist/chord-press.js ws://127.0.0.1:8765
 
 An armed track shows incoming MIDI in its meter and plays its instrument. From the lens, two `ChordSender`s on channels 0 and 1 land on the Bass and Chords tracks respectively — the same single-bridge, single-connection setup as Option A, with Live doing the channel split.
 
+## Logic Pro setup (macOS)
+
+Logic uses the same **virtual MIDI bus** approach — the bridge sends to an **IAC Driver** bus, Logic listens on it. Run the bridge on the **same Mac as Logic**. Unlike Ableton, Logic receives from every CoreMIDI input automatically, so there's no port to enable in Preferences.
+
+### 1. Bring the bus online and aim the bridge
+
+- **Audio MIDI Setup** → Window → **MIDI Studio** → double-click **IAC Driver** → check **"Device is online."**
+- `node bridge/dist/cli.js --device "IAC Driver Bus 1"` (confirm the name with `--list`).
+
+### 2a. Just make sound (single instrument)
+
+Create one **Software Instrument** track, load an instrument, and **record-enable** it (the R button). Logic routes all incoming MIDI to the armed track regardless of channel — fastest way to hear the grooves. No channel splitting here, so layered grooves stack onto the one instrument.
+
+### 2b. Split channels to instruments (multitimbral)
+
+Logic doesn't filter MIDI by channel on the track itself — you split it once in the **MIDI Environment**, then each channel feeds its own instrument. Remember the bridge is 0-indexed: **channel 0 = MIDI ch 1**.
+
+1. Create your Software Instrument tracks (one per groove) and load an instrument on each.
+2. **Window → Open MIDI Environment** (or ⌘0). In the **Layer** popup (top-left), choose **Click & Ports**.
+3. **New → Channel Splitter.** It shows a row of outputs labelled `Cha 1`…`Cha 16` plus `SUM`.
+4. Drag a cable from the **IAC Driver Bus 1** row of the **Physical Input** object to the Channel Splitter's input (its top-left triangle).
+5. Cable each numbered output to the target instrument: `Cha 1` → the Bass instrument's channel strip, `Cha 2` → the Chords instrument, and so on. (Click an output's triangle and drag to the instrument object.)
+
+Now bridge channel 0 (acid/trance) drives the Bass and channel 1 (house) drives the Chords, from the one bridge connection. The Channel Splitter persists with the project, so you set it up once.
+
+> Quick alternative to the Environment: **MainStage** ($30) handles per-channel routing in its layout editor with no Environment wiring — add a Keyboard/MIDI channel-strip per channel and set each one's MIDI channel. Good if the Environment feels heavy.
+
+### 3. Sanity check
+
+```bash
+node examples/dist/chord-press.js ws://127.0.0.1:8765
+```
+
+The armed track (2a) or the channel-split instruments (2b) should sound.
+
 ## Suggested channel plan
 
 A clean convention that maps onto a Logic/MainStage multi-instrument set or the bridge's `--route`:
